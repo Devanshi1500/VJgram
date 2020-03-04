@@ -1,4 +1,3 @@
-{% load static%}
 <!DOCTYPE html>
 <html>
 <head>
@@ -8,15 +7,45 @@
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
 	<style type="text/css">
-	.country { 
-            background-color: black; 
-            color: white; 
-            padding: 8px; 
-        } 
-	body{
-		background-image: url("{% static 'blog/images/IMG-20181223-WA01462.jpg' %}");		 
+	.country {
+            background-color: black;
+            color: white;
+            padding: 8px;
+        }
+	.class1{
+		background-image: url('vjti.jpg');
+		background-size: cover;
 	}
-	
+	.jumbotron{
+		margin-bottom: 0;
+	}
+	.s1{
+  background-image: url('.jpg');
+}
+
+.s2{
+  background-image: url('.jpg');
+}
+
+.s3{
+  background-image: url('.jpg');
+}
+.s4{
+	background-image : url('.jpg')
+}
+.card-div{
+	width:50px;
+	height:200px;
+}
+.img-div{
+  margin: 20px auto;
+  width: 100px;
+  height: 100px;
+  background-color: black;
+  background-size: cover;
+  border-radius: 100%;
+}
+
 </style>
 </head>
 <body >
@@ -25,22 +54,60 @@
     <img src="{% static 'blog/static/vjti.jpg'%}" width="30" height="30" class="d-inline-block align-top" alt="vbv">
     <b style="color: #cc0099" >VJgram</b>
   </a>
-  <form class="form-inline" >
-    <div class="input-group" id="nav">
-      <div class="input-group-prepend">
-        <span class="input-group-text" id="basic-addon1">@</span>
-      </div>
-      <input type="text" class="form-control mr-sm-4" placeholder="Email" aria-label="Username" aria-describedby="basic-addon1">
-      <div class="input-group-prepend">
-        <span class="input-group-text" id="basic-addon2">Password</span>
-      </div>
-      <input type="Password" class="form-control mr-sm-4" placeholder="" aria-label="Password" aria-describedby="basic-addon2">
-    </div>
-  </form>
 </nav>
-<div class="container" style="color: yellow">
+<div class="jumbotron class1">
+  <h1 class="display-4"><center><i>VJGRAM</i></center></h1>
+  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+  <hr class="my-4">
+  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+
+</div>
+<div class="jumbotron">
+  <h1 class="display-4"><center>About Us.</center></h1>
+  <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
+  <hr class="my-4">
+  <p>It uses utility classes for typography and spacing to space content out within the larger container.</p>
+
+</div>
+<div class="jumbotron">
+  <h1 class="display-4"><center>Creators</center></h1>
+  <center><div class="row">
+	<div class="col-sm-3">
+		<div class="card-div">
+			<div class="img-div s1">
+              </div>
+			<h4>Shivani</h4>
+		</div>
+	</div>
+	<div class="col-sm-3">
+		<div class="card-div">
+			<div class="img-div s2">
+              </div>
+			<h4>Ketaki</h4>
+		</div>
+	</div>
+	<div class="col-sm-3">
+		<div class="card-div">
+			<div class="img-div s3">
+              </div>
+			<h4>Sarakshi</h4>
+		</div>
+	</div>
+	<div class="col-sm-3">
+		<div class="card-div">
+			<div class="img-div s4">
+              </div>
+			<h4>Devanshi</h4>
+		</div>
+	</div>
+  </div>
+
+
+</div>
+</center>
+<div class="container" style="color:black">
 	<header>
-		ABOUT US
+
 	</header>
 	<table>
 		<tr><th>Creators</th><th>Roll No.</th></tr>
@@ -51,6 +118,22 @@
 	</table>
 	<p class="country">We are students of VJTI and are developing <q>VJGRAM</q></p>
 	<hr>
+	<center><img src="fest.jpg" width="1152" height="648" alt="friends" usemap="#friendmap">
+
+	<map name="friendmap">
+  <area shape="circle" coords="345,67,50" href="nirmaan.htm" alt="Nirmaan">
+  <area shape="circle" coords="578,95,50" href="pratibimb.htm" alt="pratibimb">
+  <area shape="circle" coords="870,158,50" href="technovanza.htm" alt="Technovanza">
+  <area shape="circle" coords="938,314,50" href="ecell.htm" alt="Ecell">
+  <area shape="circle" coords="940,500,50" href="coc.htm" alt="COC">
+  <area shape="circle" coords="670,575,50" href="digitalvjti.htm" alt="DigitalVjti">
+  <area shape="circle" coords="441,570,50" href="cesa.htm" alt="CESA">
+  <area shape="circle" coords="231,436,50" href="rangawardhan.htm" alt="Rangawardhan">
+  <area shape="circle" coords="139,299,50" href="alumni.htm" alt="Alumni">
+  <area shape="circle" coords="281,178,50" href="dlavjti.htm" alt="DLAVJTI">
+
+</map>
+</center>
 	<p>Bibliography</p>
 	<iframe src="https://www.w3schools.com"></iframe></div>
 	<footer>
