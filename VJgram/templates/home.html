@@ -1,0 +1,62 @@
+
+{%extends 'base.html'%}
+{%block content%}
+
+
+	<!-- Image and text -->
+<!--<nav class="navbar navbar-dark bg-primary shadow p-3 mb-5 bg-info rounded">
+  <a class="navbar-brand" href="#">
+    <img src=" static 'blog/static/vjti.jpg'" width="30" height="30" class="d-inline-block align-top" alt="vbv">
+    <b style="color: #cc0099" >VJgram</b>
+  </a>
+  <form class="form-inline">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon1">@</span>
+      </div>
+      <input type="text" class="form-control mr-sm-4" placeholder="Email" aria-label="Username" aria-describedby="basic-addon1">
+      <div class="input-group-prepend">
+        <span class="input-group-text" id="basic-addon2">Password</span>
+      </div>
+      <input type="Password" class="form-control mr-sm-4" placeholder="" aria-label="Password" aria-describedby="basic-addon2">
+    </div>
+  </form>
+</nav>
+</div>
+<div class="container col=4">
+	<h1>Create an account</h1><br>
+	<h3>It's quick and easy!</h3>
+</div>
+-->
+<div>
+<p><form>
+  <div class="row">
+    <div class="col-md-2 col-md-offset-1">
+      <input type="text" class="form-control" placeholder="First name">
+    </div>
+    <div class="col-2">
+      <input type="text" class="form-control" placeholder="Last name">
+    </div>
+  </div>
+
+</form></p>
+<div class="form-group margin-auto">
+   <p> <input type="email" class="form-control mr-sm-4" id="exampleFormControlInput1" placeholder="Email address"></p>
+         <p> <input type="Password" class="form-control mr-sm-4" placeholder="New Password"></p>
+         <p> <label>Birthday</label>
+          <input type="date" name=""></p>
+          <br><label>Gender</label>
+          <div class="custom-control custom-radio custom-control-inline">
+  <input type="radio" id="customRadioInline1" name="customRadioInline1" class="custom-control-input">
+  <label class="custom-control-label" for="customRadioInline1">Male</label>
+</div>
+<div class="custom-control custom-radio custom-control-inline">
+  <input type="radio" id="customRadioInline2" name="customRadioInline1" class="custom-control-input">
+  <label class="custom-control-label" for="customRadioInline2">Female</label>
+</div>
+<p>
+ <button type="button" class="btn btn-success">Sign Up</button></p>
+
+  </div>
+
+{%endblock%}
