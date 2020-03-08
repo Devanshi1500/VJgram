@@ -1,9 +1,9 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-# Create your views here.
-def index(request):
-    return render(request,'base.html')
+from django.urls import reverse_lazy
 
+from . import forms
 
-def sindex(request):
-    return render(request,'home.html')
+class SignUp(CreateView):
+    form_Class = forms.UserCreateForm
+    success_url = reverse_lazy('login')
+    template_name = 'VJgramapp/home.html' 

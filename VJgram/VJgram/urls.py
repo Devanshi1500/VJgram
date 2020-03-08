@@ -16,10 +16,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,include
 #from django.conf.urls import include
-from VJgramapp import views
+from . import views
 
 urlpatterns = [
     #path('',views.index,name='index'),
-    path('VJgram/',include('VJgramapp.urls')),
+    path('',views.HomePage.as_view(),name='home'),
     path('admin/', admin.site.urls),
 ]
