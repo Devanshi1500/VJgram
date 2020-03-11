@@ -1,9 +1,16 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
+from django.http import HttpResponse
+from .models import Post
 
-from . import forms
+def home(request):
+    return render(request,'home.html')
 
-class SignUp(CreateView):
-    form_Class = forms.UserCreateForm
-    success_url = reverse_lazy('login')
-    template_name = 'VJgramapp/home.html' 
+def aboutus(request):
+    return render(request,'aboutus.html',{'title': ' Shivani '})
+
+def mainpage(request):
+    context ={
+        'posts':Post.objects.all(),
+    }
+    return render(request,'mainpage.html',context = context)
