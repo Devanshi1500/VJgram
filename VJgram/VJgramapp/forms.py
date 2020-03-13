@@ -1,5 +1,7 @@
 from django.contrib.auth import get_user_model
 from django.contrib.auth.forms import UserCreationForm
+from django import forms
+from .models import Post
 
 class UserCreateForm(UserCreationForm):
     class Meta:
@@ -11,4 +13,8 @@ class UserCreateForm(UserCreationForm):
         self.fields['username'].label = 'Display Name'
         self.fields['email'].label = "Email Address"
 
-         
+class PostUpdateForm(forms.ModelForm):
+
+    class Meta:
+        model = Post
+        fields = ['title','content']
