@@ -1,4 +1,4 @@
-{% extends 'base1.html' %}
+{% extends 'VJgramapp/base1.html' %}
 {% load crispy_forms_tags%}
 {% block content %}
 	<div class="content-section">
@@ -6,21 +6,23 @@
 			{% csrf_token %}
 			<fieldset class="form-group">
 				<legend class="border-bottom mb-4">
-					Join Today
+					Log In
 				</legend>
 				{{ form|crispy}}
 			</fieldset>
 			<div class="form-group">
 				<button class="btn btn-outline-info" type="submit">
-					Sign Up
+					LogIn
 				</button>
-			</div>
-			</form>
-			<div class="border-top pt-3">
-				<small class="text-muted">
-					Already have an account? <a class="ml-2" href="{% url 'login' %}">Sign In</a>
+				<small class="text-muted ml-2">
+					<a href="{% url 'password_reset' %}">Forgot Password?</a>
 				</small>
 			</div>
-
+			<div class="border-top pt-3">
+				<small class="text-muted">
+					Need an account? <a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
+				</small>
+			</div>
+		</form>
 	</div>
 {% endblock content%}
