@@ -6,6 +6,7 @@
 		<div class="article-metadata">
 		  <a class="mr-2" href="{% url 'user-posts' object.author.username %}">{{ object.author }}</a>
 		  <small class="text-muted">{{ object.date_posted }}</small>
+		  <img class="article-img" height =50 width=100 src="{{ object.image.url }}">
 		  {% if object.author == user %}
 		  	<div>
 		  	<a class="btn btn secondary btn-sm mt-1" href="{%url 'post-update' object.id %}" Update</a>

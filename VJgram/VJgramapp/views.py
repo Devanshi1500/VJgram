@@ -21,7 +21,6 @@ class PostListView(ListView):
     context_object_name = 'posts'
     ordering = ['-date_posted']
 
-
 class UserPostListView(ListView):
     model = Post
     template_name = 'VJgramapp/user_posts.html'
@@ -33,24 +32,10 @@ class UserPostListView(ListView):
 
 class PostDetailView(DetailView):
     model = Post
-    #template_name = 'post_detail.html'
-    #context_object_name = 'posts'
-    #ordering = ['-date_posted']
 
 class PostCreateView(LoginRequiredMixin,CreateView):
     model = Post
-    #template_name = 'post_form.html'
-    #context_object_name = 'posts'
-    fields = ['title','content']
-
-    '''
-    po_form = PostUpdateForm(request.POST, request.FILES, instance=request.POST)
-    def check():
-        if po_form.is_valid():
-            po_form.save()
-            messages.success(request,f'Your post has been updated.')
-            return redirect('post/')
-    '''
+    fields = ['title','content','image']
 
     def form_valid(self,form):
         form.instance.author = self.request.user
@@ -60,7 +45,7 @@ class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
     model = Post
     #template_name = 'post_form.html'
     #context_object_name = 'posts'
-    fields = ['title','content']
+    fields = ['title','content','image']
 
     def form_valid(self,form):
         form.instance.author = self.request.user
@@ -85,10 +70,3 @@ class PostDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
 
 def aboutus(request):
     return render(request,'aboutus.html',{'title': ' Shivani '})
-
-'''def mainpage(request):
-    context ={
-        'posts':Post.objects.all(),
-    }
-    return render(request,'mainpage.html',context = context)
-'''
