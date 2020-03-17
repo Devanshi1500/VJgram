@@ -21,3 +21,41 @@ class Post(models.Model):
 
     def get_absolute_url(self):
         return reverse('post-detail',kwargs={'pk':self.pk})
+
+class Friend(models.Model):
+    friend_id = models.AutoField(primary_key=True)
+    user1 = models.ForeignKey(User,on_delete=models.CASCADE,related_name="user1")
+    user2 = models.ForeignKey(User,on_delete=models.CASCADE,related_name="user2")
+
+    def __str__(self):
+        return str(self.user1)
+
+
+class Comment(models.Model):
+    comment_id = models.AutoField(primary_key=True)
+    post_id = models.ForeignKey(Post,on_delete=models.CASCADE)
+    content = models.TextField()
+    date_created = models.DateTimeField(default=timezone.now)
+    date_updated = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return str(self.comment_id)
+
+class Message(models.Model):
+    message_id = models.AutoField(primary_key=True)
+    user_id_from = models.ForeignKey(User,on_delete=models.CASCADE,related_name="userfrom")
+    user_id_to = models.ForeignKey(User,on_delete=models.CASCADE,related_name="userto")
+    content = models.TextField()
+    date_created = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return str(self.message_id)
+
+class Like(models.Model):
+    like_id = models.AutoField(primary_key=True)
+    user_id = models.ForeignKey(User,on_delete=models.CASCADE)
+    post_id = models.ForeignKey(Post,on_delete=models.CASCADE)
+    date_created = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return str(self.like_id)

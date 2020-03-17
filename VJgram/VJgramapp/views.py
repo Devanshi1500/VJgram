@@ -15,7 +15,7 @@ from .forms import PostUpdateForm
     return render(request,'VJgrampp/mainpage.html',context = context)
 '''
 #@login_required
-class PostListView(ListView):
+class PostListView(ListView,):
     model = Post
     template_name = 'VJgramapp/mainpage.html'
     context_object_name = 'posts'
@@ -68,5 +68,12 @@ class PostDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
             return True
         return False
 
+"""class CommentListVIew(ListView):
+    model = Comment
+
+    def get_queryset(self):
+        user = get_object_or_404(User,username=self.kwargs.get('username'))
+        return Comment.objects.filter(user_idr=user).order_by('-date_posted')
+"""
 def aboutus(request):
     return render(request,'aboutus.html',{'title': ' Shivani '})
