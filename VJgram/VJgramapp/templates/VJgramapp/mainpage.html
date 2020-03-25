@@ -1,18 +1,147 @@
 {%extends 'VJgramapp/base1.html'%}
 {%block content%}
 	{% for post in posts %}
-	<article class="media content-section">
-	<img class="rounded-circle article-img" height =25 width=25 src="{{ post.author.profile.image.url }}">
-	  <div class="media-body">
-		<div class="article-metadata">
-		  <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
-		  <small class="text-muted">{{ post.date_posted }}</small>
-		  <img class="rounded-circle article-img" height =25 width=25 src="{{ object.author.profile.image.url }}">
+	<div class="card mb-3" width=150>
+		<div class="card-header">
+			<div class="row">
+				<div class="col md-2">
+					<img class="rounded-circle article-img" height =25 width=25 src="{{ post.author.profile.image.url }}">
+				</div>
+				<div class="col md-4">
+					<a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
+				</div>
+			</div>
+			<div class="row">
+				<small class="text-muted">{{ post.date_posted }}</small>
+			</div>
 		</div>
-		<h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
-		<p class="article-content">{{ post.content }}</p>
-	  </div>
-	</article>
+  		<img class="card-img-top" src="{{ post.image.url }}" alt="Card image cap">
+  		<div class="card-body">
+			<h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
+			<p class="article-content">{{ post.content }}</p>
+			<div class="btn-group">
+			  	<button type="button" class="likebutton" id="like{{post.id}}" href="#" data-catid="{{ post.id }}" >
+			    	Like
+			  	</button>
+
+			  </div>
+			  <button type="button" class="likedbutton" id="like{{post.id}}" href="#" data-catid="{{ post.id }}" >
+				  Liked Users
+			  </button>
+			  <div class="btn-group">
+  			  	<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  			    	Comment
+  			  	</button>
+  			  <div class="dropdown-menu">
+				{% for comment in comments %}
+
+		  				<p class="article-content">{{ comment.content }}</p>
+		  				<p class="article-content">{{ comment.date_created }}</p>
+
+  				{% endfor %}
+  			  </div>
+			  <form method="POST">
+				  {% csrf_token %}
+			  <label>New Comment:</label>
+			  <input type="text" id="fname" data-commentid="{{ post.id }}">
+			  <button type="button" class="commentbutton" id="comment" href="#" data-commentid="{{ post.id }}" >
+				  post
+			  </button>
+			  </form>
+			</div>
+	  	</div>
+	</div>
+
 	{% endfor%}
 
+
+	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+   <script type="text/javascript">
+	$(function()
+	{
+		$('.likedbutton').click
+		(
+			function()
+			{
+	    		var catid;
+			    catid = $(this).attr("data-catid");
+				$(this).css("background-color","red");
+				/*$.post("likepost",{'post_id':catid},function()
+					{
+					alert("post in ajax is executing xorrectly")
+				});*/
+			    $.ajax
+				(
+				    {
+				        type:"GET",
+				        url: "/likepost",
+						data:{
+							post_id: catid
+						},
+				        success:function(res){
+							console.log()
+						}
+
+				    }
+				)
+		 		console.log("this was executed correctly");
+			}
+		)
+	    $('.likebutton').click
+		(
+			function()
+			{
+	    		var catid;
+			    catid = $(this).attr("data-catid");
+				$(this).css("background-color","green");
+				/*$.post("likepost",{'post_id':catid},function()
+					{
+					alert("post in ajax is executing xorrectly")
+				});*/
+			    $.ajax
+				(
+				    {
+				        type:"POST",
+				        url: "/likepost",
+				        data:
+							{
+				                post_id: catid
+				        	},
+
+				    }
+				)
+		 		console.log("this was executed correctly");
+			}
+		)
+		$('.commentbutton').click
+		(
+			function()
+			{
+	    		var catid;
+			    catid = $(this).attr("data-commentid");
+				$(this).css("background-color","blue");
+				var cid;
+				cid = $(this).attr("data-commentid");
+				var comment_data;
+				comment_data = $(this).find("#fname").val();
+				console.log(comment_data)
+
+			    $.ajax
+				(
+				    {
+				        type:"POST",
+				        url: "/commentPost",
+				        data:
+							{   // < here
+				                'post_id': catid,
+								'content': comment_data,
+				        	},
+
+				    }
+				)
+		 		console.log("this comment executed correctly");
+			}
+		)
+	});
+	</script>
 {% endblock%}

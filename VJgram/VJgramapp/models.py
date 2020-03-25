@@ -17,7 +17,7 @@ class Post(models.Model):
     image = models.ImageField(default='vjti.jpg',upload_to='media/post_pics')
 
     def __str__(self):
-        return self.title
+        return str(self.id)
 
     def get_absolute_url(self):
         return reverse('post-detail',kwargs={'pk':self.pk})
@@ -28,11 +28,12 @@ class Friend(models.Model):
     user2 = models.ForeignKey(User,on_delete=models.CASCADE,related_name="user2")
 
     def __str__(self):
-        return str(self.user1)
+        return str(self.friend_id)
 
 
 class Comment(models.Model):
     comment_id = models.AutoField(primary_key=True)
+    user_id = models.ForeignKey(User,on_delete=models.CASCADE)
     post_id = models.ForeignKey(Post,on_delete=models.CASCADE)
     content = models.TextField()
     date_created = models.DateTimeField(default=timezone.now)
@@ -53,9 +54,10 @@ class Message(models.Model):
 
 class Like(models.Model):
     like_id = models.AutoField(primary_key=True)
+    l = models.BooleanField()
     user_id = models.ForeignKey(User,on_delete=models.CASCADE)
     post_id = models.ForeignKey(Post,on_delete=models.CASCADE)
-    date_created = models.DateTimeField(default=timezone.now)
+
 
     def __str__(self):
         return str(self.like_id)

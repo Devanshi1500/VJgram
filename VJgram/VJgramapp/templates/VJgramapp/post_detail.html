@@ -1,21 +1,55 @@
 {%extends 'VJgramapp/base1.html'%}
 {%block content%}
-	<article class="media content-section">
-	<img class="rounded-circle article-img" height =25 width=25 src="{{ object.author.profile.image.url }}">
-	  <div class="media-body">
-		<div class="article-metadata">
-		  <a class="mr-2" href="{% url 'user-posts' object.author.username %}">{{ object.author }}</a>
-		  <small class="text-muted">{{ object.date_posted }}</small>
-		  <img class="article-img" height =50 width=100 src="{{ object.image.url }}">
-		  {% if object.author == user %}
-		  	<div>
-		  	<a class="btn btn secondary btn-sm mt-1" href="{%url 'post-update' object.id %}" Update</a>
-			<a class="btn btn danger btn-sm mt-1" href="{%url 'post-delete' object.id %}" Delete</a>
+	<
+
+
+<div class="card mb-3">
+	<div class="card-header">
+		<div class="row">
+			<div class="col md-2">
+				<img class="rounded-circle article-img" height =25 width=25 src="{{ post.author.profile.image.url }}">
 			</div>
-		  {% endif %}
+			<div class="col md-4">
+				<a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
+				<p class="article-content">{{ post.id }}</p>
+			</div>
 		</div>
-		<h2 class="article-title">{{ object.title }}</h2>
-		<p class="article-content">{{ object.content }}</p>
-	  </div>
-	</article>
+		<div class="row">
+			<small class="text-muted">{{ post.date_posted }}</small>
+		</div>
+	</div>
+	<img class="card-img-top" src="{{ post.image.url }}" alt="Card image cap">
+	<div class="card-body">
+		<h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
+		<p class="article-content">{{ post.content }}</p>
+		<div class="btn-group">
+			<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				Like
+			</button>
+		  <div class="dropdown-menu">
+			  {% for like in likes %}
+				<p class="article-content">{{ like.user_id }}</p>
+			{% endfor %}
+		  </div>
+		  <div class="btn-group">
+			<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				Comment
+			</button>
+		  <div class="dropdown-menu">
+			{% for comment in comments %}
+			<p class="article-content">{{ comment.post_id }}</p>
+			<p class="article-content">{{ comment.content }}</p>
+			<p class="article-content">{{ comment.date_created }}</p>
+			{% endfor %}
+			<div class="dropdown-divider">Your Comment</div>
+		  </div>
+		</div>
+		{% if object.author == user %}
+		  <div>
+		  <a class="btn btn secondary btn-sm mt-1" href="{%url 'post-update' object.id %}" Update</a>
+		  <a class="btn btn danger btn-sm mt-1" href="{%url 'post-delete' object.id %}" Delete</a>
+		  </div>
+		{% endif %}
+	</div>
+</div>
 {% endblock%}
