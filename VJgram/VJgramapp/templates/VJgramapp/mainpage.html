@@ -1,6 +1,7 @@
 {%extends 'VJgramapp/base1.html'%}
 {%block content%}
 	{% for post in posts %}
+	{% if post.author in friends %}
 	<div class="card mb-3" width=150>
 		<div class="card-header">
 			<div class="row">
@@ -23,7 +24,7 @@
 			  	<button type="button" class="likebutton" id="like{{post.id}}" href="#" data-catid="{{ post.id }}" >
 			    	Like
 			  	</button>
-
+				<p>{{likes.count}}</p>
 			  </div>
 			  <button type="button" class="likedbutton" id="like{{post.id}}" href="#" data-catid="{{ post.id }}" >
 				  Liked Users
@@ -33,11 +34,12 @@
   			    	Comment
   			  	</button>
   			  <div class="dropdown-menu">
-				{% for comment in comments %}
 
+				{% for comment in comments %}
+					{% if comment.post_id == post %}
 		  				<p class="article-content">{{ comment.content }}</p>
 		  				<p class="article-content">{{ comment.date_created }}</p>
-
+					{% endif%}
   				{% endfor %}
   			  </div>
 			  <form method="POST">
@@ -51,7 +53,7 @@
 			</div>
 	  	</div>
 	</div>
-
+	{% endif %}
 	{% endfor%}
 
 

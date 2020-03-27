@@ -38,14 +38,14 @@
     <header class="site-header">
       <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
         <div class="container">
-          <a class="navbar-brand mb-0" href="{% url 'home' %}">VJgram</a>
+          <a class="navbar-brand mb-0" href="#">VJgram</a>
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggle" aria-controls="navbarToggle" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
           </button>
           <div class="collapse navbar-collapse" id="navbarToggle">
             <div class="navbar-nav mr-auto">
               <a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a>
-              <a class="nav-item nav-link" href="{% url 'home' %}">Home</a>
+              <a class="nav-item nav-link" href="#">Home</a>
               <a class="nav-item nav-link" href="#">About</a>
             </div>
             <!-- Navbar Right Side -->
@@ -79,7 +79,7 @@
             <h3>Our Sidebar</h3>
             <p class='text-muted'>You can put any information here you'd like.
               <ul class="list-group">
-                <li class="list-group-item list-group-item-light">Latest Posts</li>
+                <li class="list-group-item list-group-item-light"><a href="#">Friends</a></li>
                 <li class="list-group-item list-group-item-light">Announcements</li>
                 <li class="list-group-item list-group-item-light">Calendars</li>
                 <li class="list-group-item list-group-item-light">etc</li>

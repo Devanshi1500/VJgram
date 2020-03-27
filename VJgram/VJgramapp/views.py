@@ -5,18 +5,10 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView ,DeleteView ,UpdateView
 from django.http import HttpResponse, request
-from .models import Post,Comment,Like
+from .models import Post,Comment,Like,Friend
 from .forms import PostUpdateForm,CommentForm
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
-
-'''def home(request):
-    context ={
-        'posts':Post.objects.all(),
-    }
-    return render(request,'VJgrampp/mainpage.html',context = context)
-'''
-#@login_required
 
 class PostListView(ListView,):
     model = Post
@@ -26,7 +18,9 @@ class PostListView(ListView,):
 
     def get_context_data(self, **kwargs):
         context = super(PostListView, self).get_context_data(**kwargs)
-
+        user = self.request.user
+        friends = [friend.following for friend in Friend.objects.filter(user=user)]
+        context['friends'] = friends
         context['comments'] = Comment.objects.all()
         context['likes'] = Like.objects.all()
         # And so on for more models
@@ -87,16 +81,45 @@ class PostDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
             return True
         return False
 
-#class CommentListView(ListView):
-#    model = Comment
-#    context_object_name = 'comments'
-#    template_name = 'VJgramapp/mainpage.html'
+class FriendListView(ListView):
+    model = Friend
+    template_name = 'VJgramapp/friends.html'
+    context_object_name = 'friends'
 
+    def get_queryset(self):
+        user = get_object_or_404(User,username=self.kwargs.get('username'))
+        return Friend.objects.filter(user=user)
 
- #   def get_queryset(self):
-        #user = get_object_or_404(Post,id=self.kwargs.get('post_id'))
- #       return Comment.objects.all()
+class OthersUsersListView(ListView):
+    model = User
+    template_name = 'VJgramapp/otherusers.html'
+    context_object_name = 'otherusers'
+
+    def get_queryset(self,request):
+        current_user = request.user
+
+        user = get_object_or_404(User,username=self.kwargs.get('username'))
+        return Friend.objects.filter(user=user)
+
+def addFriend(request):
+        if request.method == 'POST':
+               post_id = request.POST['post_id']
+               user_id = request.user
+               likedpost = Post.objects.get(pk=post_id) #getting the liked posts
+               m = Like(post_id=likedpost,user_id=user_id,l=True) # Creating Like Object
+               m.save()  # saving it to store in database
+               return HttpResponse("Success!") # Sending an success response
+        else:
+               return HttpResponse("Request method is not a GET")
 @csrf_exempt
+def removeFriend(request):
+        if request.method == 'POST':
+               friend_id = request.POST['friend_id']
+               Friend.objects.get(friend_id=friend_id).delete()
+               return HttpResponse("Success!")
+        else:
+               return HttpResponse("Request method is not a GET")
+
 def likePost(request):
         if request.method == 'POST':
                post_id = request.POST['post_id']
@@ -122,6 +145,8 @@ def commentPost(request):
         else:
 
             return HttpResponse("Request method is not a GET")
+
+
 
 def aboutus(request):
     return render(request,'aboutus.html',{'title': ' Shivani '})
