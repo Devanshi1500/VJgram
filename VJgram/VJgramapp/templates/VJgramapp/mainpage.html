@@ -21,14 +21,17 @@
 			<h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
 			<p class="article-content">{{ post.content }}</p>
 			<div class="btn-group">
+					{% if like.post_id == post %}
+					<button type="button" background-color="blue">
+						Like
+					</button>
+					{% endif %}
 			  	<button type="button" class="likebutton" id="like{{post.id}}" href="#" data-catid="{{ post.id }}" >
 			    	Like
 			  	</button>
+
 				<p>{{likes.count}}</p>
 			  </div>
-			  <button type="button" class="likedbutton" id="like{{post.id}}" href="#" data-catid="{{ post.id }}" >
-				  Liked Users
-			  </button>
 			  <div class="btn-group">
   			  	<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
   			    	Comment
@@ -50,6 +53,8 @@
 				  post
 			  </button>
 			  </form>
+			  	<div id="likedusers">
+				</div>
 			</div>
 	  	</div>
 	</div>
@@ -61,34 +66,6 @@
    <script type="text/javascript">
 	$(function()
 	{
-		$('.likedbutton').click
-		(
-			function()
-			{
-	    		var catid;
-			    catid = $(this).attr("data-catid");
-				$(this).css("background-color","red");
-				/*$.post("likepost",{'post_id':catid},function()
-					{
-					alert("post in ajax is executing xorrectly")
-				});*/
-			    $.ajax
-				(
-				    {
-				        type:"GET",
-				        url: "/likepost",
-						data:{
-							post_id: catid
-						},
-				        success:function(res){
-							console.log()
-						}
-
-				    }
-				)
-		 		console.log("this was executed correctly");
-			}
-		)
 	    $('.likebutton').click
 		(
 			function()
@@ -125,7 +102,7 @@
 				var cid;
 				cid = $(this).attr("data-commentid");
 				var comment_data;
-				comment_data = $(this).find("#fname").val();
+				comment_data = $(this).parent().find("#fname").val();
 				console.log(comment_data)
 
 			    $.ajax

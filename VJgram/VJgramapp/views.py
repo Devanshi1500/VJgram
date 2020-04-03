@@ -95,19 +95,33 @@ class OthersUsersListView(ListView):
     template_name = 'VJgramapp/otherusers.html'
     context_object_name = 'otherusers'
 
-    def get_queryset(self,request):
+    def get_context_data(self, **kwargs):
+        context = super(OthersUsersListView, self).get_context_data(**kwargs)
+        user = self.request.user
+        friends = [friend.following for friend in Friend.objects.filter(user=user)]
+        users=[]
+        for user in User.objects.all():
+            if user in friends:
+                continue;
+            else:
+                users.append(user)
+        context['users'] = users
+        return context
+
+""" def get_queryset(self,request):
         current_user = request.user
 
         user = get_object_or_404(User,username=self.kwargs.get('username'))
         return Friend.objects.filter(user=user)
-
+"""
+@csrf_exempt
 def addFriend(request):
         if request.method == 'POST':
-               post_id = request.POST['post_id']
-               user_id = request.user
-               likedpost = Post.objects.get(pk=post_id) #getting the liked posts
-               m = Like(post_id=likedpost,user_id=user_id,l=True) # Creating Like Object
-               m.save()  # saving it to store in database
+               user_id = request.POST['user_id']
+               user = request.user
+               usert = User.objects.get(id=user_id)
+               m = Friend(user=user,following=usert) # Creating Like Object
+               m.save()
                return HttpResponse("Success!") # Sending an success response
         else:
                return HttpResponse("Request method is not a GET")
@@ -119,7 +133,7 @@ def removeFriend(request):
                return HttpResponse("Success!")
         else:
                return HttpResponse("Request method is not a GET")
-
+@csrf_exempt
 def likePost(request):
         if request.method == 'POST':
                post_id = request.POST['post_id']
@@ -130,6 +144,7 @@ def likePost(request):
                return HttpResponse("Success!") # Sending an success response
         else:
                return HttpResponse("Request method is not a GET")
+
 
 @csrf_exempt
 def commentPost(request):
