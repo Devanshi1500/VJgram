@@ -25,7 +25,7 @@ class Post(models.Model):
 class Friend(models.Model):
     friend_id = models.AutoField(primary_key=True)
     user = models.ForeignKey(User,on_delete=models.CASCADE,related_name="user",default=1)
-    following = models.ForeignKey(User,on_delete=models.CASCADE,related_name="following",default=1,unique=True)
+    following = models.ForeignKey(User,on_delete=models.CASCADE,related_name="following",default=1)
 
     def __str__(self):
         return str(self.friend_id)
