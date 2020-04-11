@@ -26,6 +26,8 @@ urlpatterns = [
     #path('',views.index,name='index'),
     path('',include('VJgramapp.urls')),
     #path('',views.HomePage.as_view(),name='home'),
+    path('',user_views.home,name='home'),
+    path('about/',user_views.about,name='about'),
     path('admin/', admin.site.urls),
     path('register/',user_views.register,name='register'),
     path('profile/',user_views.profile, name='profile'),

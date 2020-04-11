@@ -1,17 +1,56 @@
 {% extends 'VJgramapp/base1.html' %}
+
 {% load crispy_forms_tags%}
+
 {% block content %}
+<style>
+.jumbotron{
+	display:block;
+
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 150%;
+  border-radius: 5px;
+  background-color: white;
+  padding-left: 5px;
+  padding-top: none;
+  padding-bottom: none;
+  display: flex;
+  position: inline;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+
+.container {
+  padding: 30px 150px 0px 90px;
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+}
+</style>
+<div class="card">
+<div class="container" style ="width: 100%">
+	
 	<div class="content-section">
-		<form method="POST">
+		<form method="POST" enctype="multipart/form-data" action="/action_page.php">
 			{% csrf_token %}
 			<fieldset class="form-group">
-				<legend class="border-bottom mb-4">
+				<legend class="border-bottom ">
 					Join Today
 				</legend>
+				 <div class="col-xs-2" style="width: 100%">
 				{{ form|crispy}}
-			</fieldset>
+			</fieldset></div>
 			<div class="form-group">
-				<button class="btn btn-outline-info" type="submit">
+				<button class="btn btn-success" type="submit" style="width:100%">
 					Sign Up
 				</button>
 			</div>
@@ -21,6 +60,8 @@
 					Already have an account? <a class="ml-2" href="{% url 'login' %}">Sign In</a>
 				</small>
 			</div>
-
+		</div>
 	</div>
+	</div>
+</div>
 {% endblock content%}

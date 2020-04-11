@@ -161,10 +161,11 @@ def commentPost(request):
 
             return HttpResponse("Request method is not a GET")
 
+def home(request):
+    return render(request,'home.html')
 
-
-def aboutus(request):
-    return render(request,'aboutus.html',{'title': ' Shivani '})
+def about(request):
+    return render(request,'users/about.html')
 
 def createcomment(request):
     return 0

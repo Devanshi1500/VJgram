@@ -1,6 +1,40 @@
 {% extends 'VJgramapp/base1.html' %}
 {% load crispy_forms_tags%}
 {% block content %}
+<style>
+
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  width: 150%;
+  border-radius: 5px;
+  background-color: white;
+  padding-left: 10px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  display: flex;
+  position: inline;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+
+.container {
+  padding: 50px 10px;
+  
+  
+
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+}
+</style>
+<div class="card">
+<div class="container" style ="width:100%">"
 <div class="content-section">
 <div class="media">
 <img class="rounded-circle account-img" height="70" width="70" src="{{ user.profile.image.url }}">
@@ -19,12 +53,13 @@
         {{ p_form|crispy}}
     </fieldset>
     <div class="form-group">
-        <button class="btn btn-outline-info" type="submit">
+        <button class="btn btn-success" type="submit">
             Update
         </button>
     </div>
 </form>
 </div>
-
+</div>
+</div>
 
 {% endblock %}

@@ -36,3 +36,9 @@ def profile(request):
     }
 
     return render(request,'users/profile.html',context = context)
+
+def home(request):
+    return render(request,'users/home.html')
+
+def about(request):
+    return render(request,'users/about.html')
