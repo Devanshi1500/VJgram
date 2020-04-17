@@ -1,0 +1,15 @@
+
+	<h1 class="mb-3">Groups created by {{view.kwargs.username}}</h1>
+	{% for group in groups %}
+	<article class="media content-section">
+	<img class="rounded-circle article-img" height =25 width=25 src="{{ group.icon.url }}">
+	  <div class="media-body">
+		<div class="article-metadata">
+		  <a class="mr-2">{{ group.created }}</a>
+		  <small class="text-muted">{{ group.date_created }}</small>
+		</div>
+		<h2><a class="article-title" href="{% url 'group-detail' group.group_id %}">{{ group.title }}</a></h2>
+		<p class="article-content">{{ group.description }}</p>
+	  </div>
+	</article>
+	{% endfor%}

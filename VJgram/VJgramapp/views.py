@@ -70,6 +70,7 @@ class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
             return True
         return False
 
+
 class PostDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
     model = Post
     #template_name = 'post_confirm_delete.html'
@@ -162,7 +163,7 @@ def commentPost(request):
             return HttpResponse("Request method is not a GET")
 
 def home(request):
-    return render(request,'home.html')
+    return render(request,'VJgramapp/home.html')
 
 def about(request):
     return render(request,'users/about.html')

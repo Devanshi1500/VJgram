@@ -21,14 +21,17 @@
 			<h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
 			<p class="article-content">{{ post.content }}</p>
 			<div class="btn-group">
+				{% for like in likes %}
 					{% if like.post_id == post %}
-					<button type="button" background-color="blue">
+					<button type="button" color="blue">
 						Like
 					</button>
 					{% endif %}
-			  	<button type="button" class="likebutton" id="like{{post.id}}" href="#" data-catid="{{ post.id }}" >
-			    	Like
-			  	</button>
+				{% empty %}
+				<button type="button" class="likebutton" id="like{{post.id}}" href="#" data-catid="{{ post.id }}" >
+					Like
+				</button>
+				{% endfor %}
 
 				<p>{{likes.count}}</p>
 			  </div>
@@ -66,6 +69,7 @@
    <script type="text/javascript">
 	$(function()
 	{
+
 	    $('.likebutton').click
 		(
 			function()
@@ -73,10 +77,6 @@
 	    		var catid;
 			    catid = $(this).attr("data-catid");
 				$(this).css("background-color","green");
-				/*$.post("likepost",{'post_id':catid},function()
-					{
-					alert("post in ajax is executing xorrectly")
-				});*/
 			    $.ajax
 				(
 				    {

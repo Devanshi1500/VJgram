@@ -22,9 +22,11 @@ from django.conf.urls.static import static
 from VJgramapp import views
 from users import views as user_views
 
+
 urlpatterns = [
     #path('',views.index,name='index'),
     path('',include('VJgramapp.urls')),
+    path('chat/',include('chat.urls')),
     #path('',views.HomePage.as_view(),name='home'),
     path('',user_views.home,name='home'),
     path('about/',user_views.about,name='about'),

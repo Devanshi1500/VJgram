@@ -1,28 +1,28 @@
 {%extends 'VJgramapp/base1.html'%}
 {%block content%}
-	
+
 
 
 <div class="card mb-3">
 	<div class="card-header">
 		<div class="row">
 			<div class="col md-2">
-				<img class="rounded-circle article-img" height =25 width=25 src="{{ post.author.profile.image.url }}">
+				<img class="rounded-circle article-img" height =25 width=25 src="{{ object.author.profile.image.url }}">
 			</div>
 			<div class="col md-4">
-				<a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
-				<p class="article-content">{{ post.id }}</p>
+				<a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ object.author }}</a>
+				<p class="article-content">{{ object.id }}</p>
 			</div>
 		</div>
-		
+
 	</div>
-	<img class="card-img-top" src="{{ post.image.url }}" alt="Card image cap">
+	<img class="card-img-top" width="250" height="250" src="{{ object.image.url }}" alt="Card image cap">
 	<div class="row">
-			<small class="text-muted">{{ post.date_posted }}</small>
+			<small class="text-muted">{{ object.date_posted }}</small>
 		</div>
 	<div class="card-body">
-		<h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
-		<p class="article-content">{{ post.content }}</p>
+		<h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ object.title }}</a></h2>
+		<p class="article-content">{{ object.content }}</p>
 
 		<div class="btn-group">
 			<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -46,12 +46,12 @@
 			<div class="dropdown-divider">Your Comment</div>
 		  </div>
 		</div>
-		{% if object.author == user %}
+{% if post.author == user%}
 		  <div>
-		  <a class="btn btn secondary btn-sm mt-1" href="{%url 'post-update' object.id %}" Update</a>
-		  <a class="btn btn danger btn-sm mt-1" href="{%url 'post-delete' object.id %}" Delete</a>
+		  <a class="btn btn secondary btn-sm mt-1" href="{%url 'post-update' post.id %}" >Update</a>
+		  <a class="btn btn danger btn-sm mt-1" href="{%url 'post-delete' post.id %}"> Delete</a>
 		  </div>
-		{% endif %}
+{% endif %}
 	</div>
 </div>
 {% endblock%}

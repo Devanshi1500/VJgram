@@ -6,10 +6,8 @@ from django.conf.urls.static import static
 
 urlpatterns=[
     path(r'^$',views.home),
-    #path('aboutus/',views.aboutus,name='aboutus'),
-    path('home/',PostListView.as_view(),name='home'),
-    #path('home/',CommentListView.as_view(),name='home1'),
-    #path('post/<int:pk>',CommentListView.as_view(),name='home2'),
+    path('mainpage/',PostListView.as_view(),name='mainpage'),
+    path('home/',views.home,name='home1'),
     path('post/<int:pk>',PostDetailView.as_view(),name='post-detail'),
     path('post/new/',PostCreateView.as_view(),name='post-create'),
     path('post/<int:pk>/update/',PostUpdateView.as_view(),name='post-update'),
@@ -19,7 +17,7 @@ urlpatterns=[
     path('likepost', views.likePost, name='likepost'),
     path('removefriend', views.removeFriend, name='removefriend'),
     path('addfriend', views.addFriend, name='addfriend'),
-    path('home/friends/<str:username>',FriendListView.as_view(),name='friends'),
+    path('mainpage/friends/<str:username>',FriendListView.as_view(),name='friends'),
     path('otherusers',OthersUsersListView.as_view(),name='otherusers'),
 ]
 

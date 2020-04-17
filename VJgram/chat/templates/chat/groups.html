@@ -1,0 +1,46 @@
+
+{% for group in groups%}
+{% if group in g %}
+{{group.creator}}
+{{group.description}}
+{{group.title}}
+{{group.icon.url}}
+{{group.date_created}}
+<button type="button" class="leavegroup" data-catid="{{group.group_id}}">
+  leaveGroup
+</button>
+{%endif%}
+
+	</div>
+	</div>
+{% endfor %}
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+$(function()
+{
+
+	$('.leavegroup').click
+	(
+		function()
+		{
+			var catid;
+			catid = $(this).attr("data-catid");
+			$(this).css("background-color","green");
+			$.ajax
+			(
+				{
+					type:"POST",
+					url: "/chat/leavegroup",
+					data:
+						{
+							group_id: catid,
+						},
+
+				}
+			)
+			console.log("this was executed correctly");
+		}
+	)
+
+});
+</script>
