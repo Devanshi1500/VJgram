@@ -1,4 +1,5 @@
 
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 
 <div class="card mb-3">
 	<div class="card-header">
@@ -19,25 +20,28 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <style>
   body {
-    font:0.8em Arial;
+    font-size: 1em;
+	font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+	
   }
 
   .chat .messages {
     border:1 px solid;
-    background-color:#FFE4C4;
-    width:250px;
+    background-color:#ffffff;
+	border-radius: 15px;
+    width:40%;
     padding:10px;
-    height:250px;
+	margin: auto;
     overflow-y:scroll;
+	height:350px;
+	color: snow;
   }
 
-  .chat .entry{
-    width:250px;
-    height:40px;
-    padding:5px;
-    margin-top:5px;
-    font:1em Arial;
+  form{
+	  margin: auto;
+	  width: 50%;
   }
+
 
   .chat .message a {
     color:slategray;
@@ -46,21 +50,46 @@
   .chat .message p{
     margin:5px;
   }
-</style>
-<div class="chat">
-	<div class="messages">
-		{% for chat in chats %}
-				{{chat.user_id_from}}
-				{{chat.content}}
-				{{chat.date_created}}
-		{% endfor %}
-	</div>
 
-		<form method="POST">
+  .speech-bubble {
+	position: relative;
+	background: #016464;
+	border-radius: .4em;
+}
+
+.speech-bubble:after {
+	content: '';
+	position: absolute;
+	left: 0;
+	top: 50%;
+	width: 0;
+	height: 0;
+	border: 18px solid transparent;
+	border-right-color: #016464;
+	border-left: 0;
+	border-top: 0;
+	margin-top: -9px;
+	margin-left: -18px;
+}
+</style>
+<div class="chat container">
+	<div class="messages">
+		<ul style="list-style-type: none;">
+		{% for chat in chats %}
+			<li class="speech-bubble" style="border: 1px solid #016464; background-color: #016464; border-radius: 10px; padding: 1rem;">
+				<span style="float: left;"><b>{{chat.user_id_from}}: </b></span>
+				<span>{{chat.content}}</span><br>
+				<span style="font-size: 10px; float: right;">{{chat.date_created}}</span>
+			</li><br>
+		{% endfor %}
+	</ul>
+	</div>
+<br>
+		<form method="POST" style="text-align: center;">
 			{% csrf_token %}
 
-		<input type="text" id="fname" data-commentid="{{ group.group_id }}">
-		<button type="button" class="postbutton" id="comment" data-commentid="{{ group.group_id }}" >
+		<input class="form-group" type="text" id="fname" data-commentid="{{ group.group_id }}" style="width: 50%; padding: 5px; border-radius: 10px;">
+		<button type="button" class="postbutton btn btn-outline-success" id="comment" data-commentid="{{ group.group_id }}" >
 			post
 		</button>
 		</form>

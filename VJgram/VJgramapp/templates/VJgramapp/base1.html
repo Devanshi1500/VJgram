@@ -120,7 +120,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
       <nav class="navbar navbar-inverse">
         <div class="container-fluid">
     <div class="navbar-header">
-          <a class="navbar-brand" href="#">
+          <a class="navbar-brand" href="{% url 'mainpage' %}">
           
           <img src="https://www.freelogodesign.org/file/app/client/thumb/1d7a5b4d-cda1-4f24-b5a2-34b422a988af_200x200.png?1586113790372" height="50" width="50"  alt="vbv">
         </a></div>
@@ -133,8 +133,8 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
             <ul class="nav navbar-nav">
              
                 <li><a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a></li>
-              <li><a class="nav-item nav-link" href="#">Home</a></li>
-              <li><a class="nav-item nav-link" href="#">About</a></li>
+              <li><a class="nav-item nav-link" href="{% url 'mainpage' %}">Home</a></li>
+              <li><a class="nav-item nav-link" href="{% url 'about' %}">About</a></li>
             </ul>
             <!-- Navbar Right Side -->
             <ul class="nav navbar-nav navbar-right">
