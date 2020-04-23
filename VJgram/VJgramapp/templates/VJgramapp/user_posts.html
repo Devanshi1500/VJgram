@@ -1,12 +1,21 @@
 {%extends 'VJgramapp/base1.html'%}
 {%block content%}
+
+
+<style>
+	.article{
+		margin: auto;
+	}
+</style>
+
 	<h1 class="mb-3">Posts by {{view.kwargs.username}}</h1>
 	{% for post in posts %}
-	<article class="media content-section">
-	<img class="rounded-circle article-img" height =25 width=25 src="{{ post.author.profile.image.url }}">
+	<article class="media content-section article">
+	<img class="rounded-circle article-img" height=25 width=25 src="{{ post.author.profile.image.url }}">
+	<a class="mr-2" href="{% url 'user-posts' post.author.username %}">  {{ post.author }}</a>
 	  <div class="media-body">
 		<div class="article-metadata">
-		  <a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
+		  
 		  <small class="text-muted">{{ post.date_posted }}</small>
 		</div>
 		<img class="article-img" height =50 width=100 src="{{ post.image.url }}">

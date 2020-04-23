@@ -1,14 +1,40 @@
 {% extends 'VJgramapp/base1.html' %}
-
 {% block content %}
+
+
+<style>
+
+.jumbotron{
+  color: rgb(0,90,90);
+  border: 1px solid #dddddd;
+  border-left: 7px solid teal;
+  border-bottom: 1px solid teal;
+  border-radius: 20px;
+}
+
+button:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  transform: translate(2px,2px);
+}
+
+.jumbotron:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+</style>
+
+<br>
 <div class="container">
-	<div class="jumbotron">
-		<h3>Welcome to VJgram</h3>
-		<p>This website is to help to explore your college and it's people blah blah</p>
-		<p>So,let's get started</p>
-		<button class="btn btn-primary" type="submit">Sign up</button>
-		<p>Or</p>
-		<button class="btn btn-primary" type="submit">Login</button>
+	<div class="jumbotron" style="font-size: 1.5rem;">
+		<p>Welcome to <b>VJgram</b>, your number one source for all intra-college communication. 
+		We're dedicated to providing you the very best of our services, with an emphasis on 
+		quality communication.</p>
+		<p>So, let's get started!</p><br>
+		<div style="text-align: center;">
+		<button class="btn btn-outline-info" type="submit" style="padding: .75% 7.5%;">Sign Up</button>
+		<span>&nbsp; OR &nbsp; </span>
+		<button class="btn btn-outline-info" type="submit" style="padding: .75% 7.5%;">Login</button>
+		</div>
 	</div>
 </div>
 {% endblock content %}

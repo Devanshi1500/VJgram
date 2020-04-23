@@ -6,29 +6,28 @@
 <style>
 .jumbotron{
 	display:block;
-
+	color: rgb(0, 78, 78);
+	margin: 0 15%;
+	border: 1px solid #dddddd;
+	border-left: 7px solid teal;
+	border-bottom: 1px solid teal;
 }
 
-.card {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-  width: 150%;
-  border-radius: 5px;
-  background-color: white;
-  padding-left: 5px;
-  padding-top: none;
-  padding-bottom: none;
-  display: flex;
-  position: inline;
-}
-
-.card:hover {
+.jumbotron:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  transform: translate(3px,3px);
 }
 
+.jumbotron{
+	padding: 20px 20px;
+}
+
+input:hover,button:hover{
+		transform: translate(3px,3px);
+	}
 
 .container {
-  padding: 30px 150px 0px 90px;
+  padding: 30px 150px 0px 150px;
 
   display: flex;
   justify-content: center;
@@ -36,21 +35,21 @@
 }
 }
 </style>
-<div class="card">
-<div class="container" style ="width: 100%">
-	
+<div class="container" style ="width: 100%; text-align: center;">
+	<div class="jumbotron">
 	<div class="content-section">
 		<form method="POST" enctype="multipart/form-data" action="/action_page.php">
 			{% csrf_token %}
 			<fieldset class="form-group">
-				<legend class="border-bottom ">
+				<legend class="border-bottom" style="font-size: 2.5rem;">
 					Join Today
 				</legend>
+				<br>
 				 <div class="col-xs-2" style="width: 100%">
 				{{ form|crispy}}
 			</fieldset></div>
 			<div class="form-group">
-				<button class="btn btn-success" type="submit" style="width:100%">
+				<button class="btn btn-outline-info" type="submit">
 					Sign Up
 				</button>
 			</div>
@@ -61,7 +60,6 @@
 				</small>
 			</div>
 		</div>
+	</div><br><br>
 	</div>
-	</div>
-</div>
 {% endblock content%}

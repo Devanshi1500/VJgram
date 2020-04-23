@@ -3,46 +3,44 @@
 {% block content %}
 <style>
 
-
-.card {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-  width: 150%;
-  border-radius: 5px;
-  background-color: white;
-  padding-left: 10px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  display: flex;
-  position: inline;
-}
-
-.card:hover {
+.jumbotron:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  transform: translate(2px,2px);
 }
 
+  input:hover,button:hover{
+    box-shadow: 0 6px 8px 0 rgba(0,0,0,0.1);
+		transform: translate(3px,3px);
+	}
 
 .container {
   padding: 50px 10px;
-  
-  
-
   display: flex;
   justify-content: center;
   flex-direction: row;
 }
+
+.jumbotron{
+  color: rgb(0,90,90);
+  border: 1px solid #dddddd;
+	border-left: 7px solid teal;
+	border-bottom: 1px solid teal;
+  border-radius: 20px;
+  padding: 30px 20px;
+}
+
 }
 </style>
-<div class="card">
-<div class="container" style ="width:100%">"
-<div class="content-section">
-<div class="media">
-<img class="rounded-circle account-img" height="70" width="70" src="{{ user.profile.image.url }}">
+<div class="container" style ="width:100%">
+  <div class="jumbotron">
+<!-- <div class="content-section"> -->
+<div style="text-align: center;">
+<img class="rounded-circle account-img" height="150" width="150" src="{{ user.profile.image.url }}"><br><br>
 <div class="media-body">
   <h2 class="account-heading" >{{user.username}}</h2>
-  <p class="text-secondary">{{user.email}}</p>
+  <h5 class="text-secondary">{{user.email}}</h5>
 </div>
-</div>
+</div><br>
 <form method="POST" enctype="multipart/form-data">
     {% csrf_token %}
     <fieldset class="form-group">
@@ -52,8 +50,8 @@
         {{ u_form|crispy}}
         {{ p_form|crispy}}
     </fieldset>
-    <div class="form-group">
-        <button class="btn btn-success" type="submit">
+    <div class="form-group" style="text-align: center;">
+        <button class="btn btn-outline-info" style="padding: .75% 7.5%;" type="submit">
             Update
         </button>
     </div>

@@ -3,62 +3,57 @@
 {% block content %}
 <style>
 
-
-.card {
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  transition: 0.3s;
-  width: 250%;
-  border-radius: 5px;
-  background-color: white;
-  padding-left: 10px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  display: flex;
-  position: inline;
+.jumbotron{
+	padding: 30px 20px;
 }
 
-.card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+.jumbotron:hover{
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+  transform: translate(3px,3px);
 }
 
+input:hover,button:hover{
+		transform: translate(3px,3px);
+	}
 
-.container {
-  padding: 50px 10px;
-  
-  
-
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
+.box{
+	color: rgb(0, 78, 78);
+	margin: 0 25%;
+	border: 1px solid #dddddd;
+	border-left: 7px solid teal;
+	border-bottom: 1px solid teal;
 }
+
+.box:hover{
+	box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
 }
 </style>
-<div class="card">
-<div class="container" style ="width: 100%">
-	
-	<div class="content-section">
-		<form method="POST">
+<div class="container"><br>
+	<div class="jumbotron box">
+	<!-- <div class="content-section"> -->
+		<form method="POST" style="text-align: center;">
 			{% csrf_token %}
-			<fieldset class="form-group">
-				<legend class="border-bottom mb-4">
+			<fieldset class="form-group" style="font-size: large;">
+				<legend class="border-bottom" style="font-size: 2rem; padding-bottom: 10px;">
 					Log In
 				</legend>
-				<div class="col-xs-10" style="width: 100%">
+				<!-- <div class="col-xs-10" style="width: 100%"> -->
 				{{ form|crispy}}
+				<!-- </div> -->
 			</fieldset>
 			<div class="form-group">
-				<button class="btn btn-success" type="submit" style="width:100%">
-					LogIn
+				<button class="btn btn-outline-info" type="submit" style="padding: 1% 7.5%;">
+					Login
 				</button>
 			</div>
-			<div class="border-top pt-3">
+			<div class="border-top pt-2">
 				<small class="text-muted">
 					Need an account? <a class="ml-2" href="{% url 'register' %}">Sign Up Now</a>
 				</small>
-				Hiiiiiii
 			</div>
 		</form>
 	</div>
-</div>
-</div>
-{% endblock content%}
+<!-- </div> -->
+{% endblock%}

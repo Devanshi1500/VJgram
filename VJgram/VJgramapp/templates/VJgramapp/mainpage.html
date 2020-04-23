@@ -1,25 +1,44 @@
 {%extends 'VJgramapp/base1.html'%}
 {%block content%}
+
+<style>
+	input:hover, button:hover{
+		transform: translate(2px,2px);
+	}
+
+	.card{
+		color: rgb(0, 90, 90);
+		margin: 3% 30%;
+		border: 1px solid #dddddd;
+		border-left: 7px solid teal;
+		border-bottom: 1px solid teal;
+		border-radius: 20px;
+		padding: 20px;
+	}
+</style>
+
+<div class="jumbotron">
+	
 	{% for post in posts %}
 	{% if post.author in friends %}
-	<div class="card mb-3" width=150>
-		<div class="card-header">
+	<div class="card">
 			<div class="row">
-				<div class="col md-2">
-					<img class="rounded-circle article-img" height =25 width=25 src="{{ post.author.profile.image.url }}">
+				<div style="padding-left: 15px;">
+					<img class="rounded-circle article-img" height=50 width=50 src="{{ post.author.profile.image.url }}">
 				</div>
-				<div class="col md-4">
-					<a class="mr-2" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a>
+				<div class="col-md-4">
+					<h2 style="padding-top: 7px;"><b><a style="color: rgb(0, 90, 90);" href="{% url 'user-posts' post.author.username %}">{{ post.author }}</a></b></h2>
 				</div>
+			</div><br>
+
+
+			<div style="text-align: center; background-color: black; border-radius: 10px;">
+				<img width="250" height="250" src="{{ post.image.url }}" alt="Card image cap"><br>
 			</div>
-			<div class="row">
-				<small class="text-muted">{{ post.date_posted }}</small>
-			</div>
-		</div>
-  		<img class="card-img-top" src="{{ post.image.url }}" height="500px" width="500px" alt="Card image cap">
-  		<div class="card-body">
-			<h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
-			<p class="article-content">{{ post.content }}</p>
+				<b><a class="article-title" style="color: rgb(0, 90, 90); font-size: 2rem;" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></b>
+				<span class="article-content">{{ post.content }}</span>
+		
+
 			<div class="btn-group">
 				{% for like in likes %}
 					{% if like.post_id == post %}
@@ -28,42 +47,39 @@
 					</button>
 					{% endif %}
 				{% empty %}
-				<button type="button" class="likebutton" id="like{{post.id}}" href="#" data-catid="{{ post.id }}" >
+				<button type="button" class="likebutton btn btn-danger" id="like{{post.id}}" href="#" data-catid="{{ post.id }}" >
 					Like
 				</button>
 				{% endfor %}
-
 				<p>{{likes.count}}</p>
-			  </div>
-			  <div class="btn-group">
-  			  	<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-  			    	Comment
-  			  	</button>
-  			  <div class="dropdown-menu">
+			</div>
 
+			<div class="btn-group">
+  			  	<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  			    	Comments
+  			  	</button>
+  			<div class="dropdown-menu">
 				{% for comment in comments %}
 					{% if comment.post_id == post %}
-		  				<p class="article-content">{{ comment.content }}</p>
-		  				<p class="article-content">{{ comment.date_created }}</p>
+		  				<p class="article-content" style="padding: 5px; font-size: 1rem;">{{ comment.content }}<br>
+						  <span class="article-content" style="font-size: x-small; text-align: right;"><span>{{ comment.date_created }}</span></span>
+						</p>
 					{% endif%}
   				{% endfor %}
-  			  </div>
+  			  </div><br><br>
 			  <form method="POST">
 				  {% csrf_token %}
-			  <label>New Comment:</label>
-			  <input type="text" id="fname" data-commentid="{{ post.id }}">
+			  <input placeholder="New Comment" type="text" id="fname" data-commentid="{{ post.id }}">
 			  <button type="button" class="commentbutton" id="comment" href="#" data-commentid="{{ post.id }}" >
-				  post
+				  Post
 			  </button>
 			  </form>
-			  	<div id="likedusers">
-				</div>
-			</div>
-	  	</div>
-	</div>
+			</div><br>
+		<small class="text-muted" style="font-size: medium;">Posted on: {{ post.date_posted }}</small>	  	</div>
+
 	{% endif %}
 	{% endfor%}
-
+</div>
 
 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
    <script type="text/javascript">

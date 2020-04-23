@@ -13,9 +13,8 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://kit.fontawesome.com/be0ad558f3.js" crossorigin="anonymous"></script>
 
-    <!-- Bootstrap CSS 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+   
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
@@ -35,35 +34,21 @@ li {
 body {
   
   background-color: #f1f1f1;
-  background-image: url('https://www.freelogodesign.org/file/app/client/thumb/3a85ea62-5604-4dfa-a3f0-b5f3f1b9114e_200x200.png?1586357230022');
+  /* background-image: url('https://www.freelogodesign.org/file/app/client/thumb/3a85ea62-5604-4dfa-a3f0-b5f3f1b9114e_200x200.png?1586357230022'); */
   background-repeat: no-repeat;
   background-size: 100%;
   padding-left: none;
 }
 
 
-html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
+html, body, h1, h2, h3, h4, h5 {font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;}
 
-    /* Remove the navbar's default margin-bottom and rounded borders */ 
-    .navbar {
-      margin-bottom: 0;
-      border-radius: 0;
-    }
-    
-    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
     .row.content {height: 600px;
 
     }
-    
-    /* Set gray background color and 100% height */
-    .sidenav {
-      padding-top: 20px;
-      background-color: #f1f1f1;
-      height: 100%;
 
-    }
-    
-    /* Set black background color, white text and some padding */
+    .bg-info{background-color:rgb(0, 90, 90)!important}
+
     footer {
       background-color: black;
       color: white;
@@ -71,7 +56,6 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
       width:auto;
     }
     
-    /* On small screens, set height to 'auto' for sidenav and grid */
     @media screen and (max-width: 100%) {
       .sidenav {
         height: auto;
@@ -90,23 +74,17 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
       color:#f50057;
       transition: .4s
     }
+    .logo{
+            background-color: rgb(0, 90, 90);
+            object-fit: cover;
+            height: 40px;
+            width: 100px;
+            /* object-position: 100px 200px; */
+        }
+    .logo:hover,li:hover{
+      transform: translate(2px,2px)
+    }
 </style>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     {% if title %}
         <title>VJgram - {{ title }}</title>
@@ -115,90 +93,58 @@ html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
     {% endif %}
 </head>
 <body>
-      <div class="bs-example">
+     <div class="bs-example">
      <header class="site-header">
-      <nav class="navbar navbar-inverse">
-        <div class="container-fluid">
-    <div class="navbar-header">
-          <a class="navbar-brand" href="{% url 'mainpage' %}">
-          
-          <img src="https://www.freelogodesign.org/file/app/client/thumb/1d7a5b4d-cda1-4f24-b5a2-34b422a988af_200x200.png?1586113790372" height="50" width="50"  alt="vbv">
-        </a></div>
-          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>                        
-      </button>
-          <div class="collapse navbar-collapse" id="myNavbar">
-            <ul class="nav navbar-nav">
-             
-                <li><a class="nav-item nav-link" href="{% url 'post-create' %}">New Post</a></li>
-              <li><a class="nav-item nav-link" href="{% url 'mainpage' %}">Home</a></li>
-              <li><a class="nav-item nav-link" href="{% url 'about' %}">About</a></li>
-            </ul>
-            <!-- Navbar Right Side -->
-            <ul class="nav navbar-nav navbar-right">
-              {% if user.is_authenticated %}
-              <form class="navbar-form navbar-left" action="/action_page.php">
-      <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search" name="search">
-        <div class="input-group-btn">
-          <button class="btn btn-default" type="submit">
-            <i class="glyphicon glyphicon-search"></i>
-          </button>
-        </div>
-      </div>
-    </form>
-              <li><a class="nav-item nav-link" href="{% url 'profile' %}">Profile</a></li>
-              <li><a class="nav-item nav-link" href="{% url 'logout' %}">LogOut</a></li>
 
-
-              {% else %}
-              <li><a class="nav-item nav-link" href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span> Login </a></li>
-              <li><a class="nav-item nav-link" href="{% url 'register'%}"><span class="glyphicon glyphicon-user"></span> Sign up </a></li>
-              {% endif %}
-            </ul>
-          </div>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-info" style="font-size: large; color: snow;">
+        <a class="navbar-brand" href="{% url 'mainpage' %}"><img class="logo" src="https://www.freelogodesign.org/file/app/client/thumb/1d7a5b4d-cda1-4f24-b5a2-34b422a988af_200x200.png?1586113790372" height="50" width="50"  alt="vbv"></a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'post-create' %}"><b>New Post</b></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'mainpage' %}"><b>Home</b></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'about' %}"><b>About</b></a>
+              </li>  
+          </ul>
+          <ul class="navbar-nav">
+            {% if user.is_authenticated %}
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'profile' %}"><b>Profile</b></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="{% url 'logout' %}"><b>Logout</b></a>
+            </li>
+            {% else %}
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'login' %}"><b>Logout</b>></a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url 'register' %}"><b>Register</b></a>
+              </li>
+            {% endif %} 
+         </ul>
         </div>
       </nav>
+
     </header>
     </div>
-    <main role="main" class="container p-5">
-      <div class="row">
-        <div class="col-md-8">
-          {% if messages %}
-            {% for message in messages %}
-            <div class="alert slert-{{message.tags}}">
-                {{ message }}
-            </div>
-            {% endfor %}
-          {%endif%}
-          {% block content %}{% endblock %}
-        </div>
-        <!--<div class="col-md-4">
-          <div class="content-section">
-            <h3>Our Sidebar</h3>
-            <p class='text-muted'>You can put any information here you'd like.
-              <ul class="list-group">
-                <li class="list-group-item list-group-item-light"><a href="#">Friends</a></li>
-                <li class="list-group-item list-group-item-light">Announcements</li>
-                <li class="list-group-item list-group-item-light">Calendars</li>
-                <li class="list-group-item list-group-item-light">etc</li>
-              </ul>
-            </p>
-          </div>
-        </div>
-      </div>
-    </main>-->
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+          {% block content %}
+          
+          
+          {% endblock %}
+        
+       
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
-<!--
-  background-image: url('https://images.pexels.com/photos/531880/pexels-photo-531880.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500');
-  background-repeat: no-repeat;
-  background-size: 100%;-->
