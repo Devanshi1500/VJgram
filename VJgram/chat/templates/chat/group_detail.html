@@ -102,7 +102,7 @@
 </div>
 
 
-<div class="chat container">
+<div class="container" id="chat">
 	<div class="messages">
 		<ul style="list-style-type: none;">
 		{% for chat in chats %}
@@ -112,6 +112,13 @@
 				<span style="font-size: 10px; float: right;">{{chat.date_created}}</span>
 			</li><br>
 		{% endfor %}
+		<div class="chatting">
+			<li class="speech-bubble">
+				<span style="float: left;"><b>{{chat.user_id_from}}: </b></span>
+				<span>{{chat.content}}</span><br>
+				<span style="font-size: 10px; float: right;">{{chat.date_created}}</span>
+			</li><br>
+		</div>
 	</ul>
 	</div>
 <br>
@@ -138,14 +145,13 @@
 
 $(function()
 {
-$('#comment').click
-(
-	function()
-	{
-			var catid;
-			catid = $(this).attr("data-commentid");
-		// $(this).css("background-color","blue");
-		var cid;
+    $('#comment').click
+    (
+        function()
+        {
+            var catid;
+            catid = $(this).attr("data-commentid");
+            var cid;
 		cid = $(this).attr("data-commentid");
 		var comment_data;
 		comment_data = $(this).parent().find("#fname").val();
@@ -161,12 +167,12 @@ $('#comment').click
 						content: comment_data,
 							},
 							success:function(data){
-								var prevState = $(".chat .messages").html();
+								var prevState = $("#chat .messages .chatting").html();
 								console.log(prevState.length);
 								message = data.user_id+" "+data.content;
 								if(prevState.length >4)
 								{ prevState = prevState+"<br>";}
-								$(".chat .messages").html(prevState + message );
+								$("#chat .messages  .chatting").html(prevState + message );
 							}
 
 				}

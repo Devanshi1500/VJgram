@@ -30,11 +30,7 @@
 			<br>
 		<div class="btn-group">
 			<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Like</button>
-		  <div class="dropdown-menu">
-			  {% for like in likes %}
-				<p class="article-content">{{ like.user_id }}</p>
-			{% endfor %}
-		  </div>&nbsp;&nbsp;&nbsp;
+
 		  <div class="btn-group">
 			<button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Comment</button>
 		  <div class="dropdown-menu">
@@ -55,7 +51,7 @@
 {% endif %}
 <br>
 <small class="text-muted" style="font-size: medium;">Posted on: {{ object.date_posted }}</small>
-	
+
 </div>
 </div>
 {% endblock%}

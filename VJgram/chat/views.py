@@ -29,9 +29,8 @@ class GroupCreateView(CreateView):
 
     def form_valid(self,form):
         form.instance.creator = self.request.user
-        m = GroupMember(member=user,group=form.instance) # Creating Like Object
-        m.save()
         return super().form_valid(form)
+        
 
 class GroupUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
     model = Group
@@ -105,7 +104,7 @@ def joinGroup(request):
                group_id = request.POST['group_id']
                user = request.user
                group = Group.objects.get(group_id=group_id)
-               m = GroupMember(member=user,group=group) # Creating Like Object
+               m = GroupMember(member=user,group=group) # Creating GroupMember Object
                m.save()
                return HttpResponse("Success!") # Sending an success response
         else:
@@ -115,7 +114,7 @@ def joinGroup(request):
 def leaveGroup (request):
         if request.method == 'POST':
                gpm_id = request.POST['group_id']
-               GroupMember.objects.get(gpm_id=gpm_id).delete()
+               GroupMember.objects.get(gpm_id=gpm_id).delete()# Deleting GroupMember Object
                return HttpResponse("Success!")
         else:
                return HttpResponse("Request method is not a GET")
@@ -128,20 +127,13 @@ def inputChat(request):
             queryset = userd.username
             content = request.POST.get('content',False)
             group = Group.objects.get(group_id=group_id)
-            m = Message(user_id_from=userd,content=content,group=group) # Creating Like Object
+            m = Message(user_id_from=userd,content=content,group=group) # Creating Message Object
             m.save()
             return JsonResponse({'user_id':queryset,'content':content}) # Sending an success response
         else:
             return HttpResponse("Request method is not a GET")
 
-@csrf_exempt
-def deleteChat(request):
-        if request.method == 'POST':
-            message_id = request.POST['message_id']
-            Friend.objects.get(friend_id=friend_id).delete()
-            return HttpResponse("Success!")
-        else:
-            return HttpResponse("Request method is not a GET")
+
 
 class MessageListView(ListView):
     model = Message

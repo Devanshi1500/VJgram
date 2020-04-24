@@ -121,7 +121,7 @@ def addFriend(request):
                user_id = request.POST['user_id']
                user = request.user
                usert = User.objects.get(id=user_id)
-               m = Friend(user=user,following=usert) # Creating Like Object
+               m = Friend(user=user,following=usert) # Creating Friend Object
                m.save()
                return HttpResponse("Success!") # Sending an success response
         else:
@@ -130,7 +130,7 @@ def addFriend(request):
 def removeFriend(request):
         if request.method == 'POST':
                friend_id = request.POST['friend_id']
-               Friend.objects.get(friend_id=friend_id).delete()
+               Friend.objects.get(friend_id=friend_id).delete() # Deleting Friend Object
                return HttpResponse("Success!")
         else:
                return HttpResponse("Request method is not a GET")
@@ -153,8 +153,8 @@ def commentPost(request):
             post_id = request.POST['post_id']
             user_id = request.user
             comment = request.POST.get('content',False)
-            likedpost = Post.objects.get(pk=post_id) #getting the liked posts
-            m = Comment(post_id=likedpost,user_id=user_id,content=comment) # Creating Like Object
+            commentedpost = Post.objects.get(pk=post_id) #getting the commented posts
+            m = Comment(post_id=commentedpost,user_id=user_id,content=comment) # Creating Comment Object
             m.save()
             return HttpResponse("Success!") # Sending an success response
 
