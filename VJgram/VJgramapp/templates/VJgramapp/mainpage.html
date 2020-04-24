@@ -18,7 +18,7 @@
 </style>
 
 <div class="jumbotron">
-	
+
 	{% for post in posts %}
 	{% if post.author in friends %}
 	<div class="card">
@@ -37,7 +37,7 @@
 			</div>
 				<b><a class="article-title" style="color: rgb(0, 90, 90); font-size: 2rem;" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></b>
 				<span class="article-content">{{ post.content }}</span>
-		
+
 
 			<div class="btn-group">
 				{% for like in likes %}
@@ -78,7 +78,32 @@
 		<small class="text-muted" style="font-size: medium;">Posted on: {{ post.date_posted }}</small>	  	</div>
 
 	{% endif %}
+	{% empty %}
+		Seems like you don't have any friends, go ahead make some!
 	{% endfor%}
+	<div class="col-md-4">
+          <div class="content-section">
+            <h3>Our Sidebar</h3>
+            <p class='text-muted'>You can put any information here you'd like.
+              <ul class="list-group">
+								<li class="list-group-item list-group-item-light">
+									<a class="nav-link" href="{% url 'post-create' %}"><b>Want to Post?</b></a>
+								</li>
+                <li class="list-group-item list-group-item-light">
+									<a class="nav-link" href="{% url 'friends' user.username %}"><b>Your Friends</b></a>
+								</li>
+                <li class="list-group-item list-group-item-light">
+									<a class="nav-link" href="{% url 'otherusers' %}"><b>Want to make New Friends?</b></a>
+								</li>
+                <li class="list-group-item list-group-item-light">
+									<a class="nav-link" href="{% url 'groups' %}"><b>Your Groups</b></a>
+								</li>
+                <li class="list-group-item list-group-item-light">
+									<a class="nav-link" href="{% url 'othergroups' %}"><b>Want to make New Groups?</b></a>
+								</li>
+              </ul>
+            </p>
+          </div>
 </div>
 
 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
