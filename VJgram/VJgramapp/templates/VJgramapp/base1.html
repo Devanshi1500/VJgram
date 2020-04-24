@@ -104,9 +104,7 @@ html, body, h1, h2, h3, h4, h5 {font-family: 'Gill Sans', 'Gill Sans MT', Calibr
       
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item">
-              <a class="nav-link" href="{% url 'post-create' %}"><b>New Post</b></a>
-            </li>
+           
             <li class="nav-item">
               <a class="nav-link" href="{% url 'mainpage' %}"><b>Home</b></a>
             </li>
@@ -119,15 +117,22 @@ html, body, h1, h2, h3, h4, h5 {font-family: 'Gill Sans', 'Gill Sans MT', Calibr
             <li class="nav-item">
               <a class="nav-link" href="{% url 'profile' %}"><b>Profile</b></a>
             </li>
+             <li class="nav-item">
+              <a class="nav-link" href="{% url 'post-create' %}"><b>New Post</b></a>
+            </li>
             <li class="nav-item">
               <a class="nav-link" href="{% url 'logout' %}"><b>Logout</b></a>
             </li>
             {% else %}
             <li class="nav-item">
+<<<<<<< HEAD
                 <a class="nav-link" href="{% url 'login' %}"><b>Login</b></a>
+=======
+                <a class="nav-link" href="{% url 'login' %}"><span class="glyphicon glyphicon-log-in"></span><b>Login</b></a>
+>>>>>>> 727c4087ee6699c989130ae641ed7f0367028d6c
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="{% url 'register' %}"><b>Register</b></a>
+                <a class="nav-link" href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span><b>Sign Up</b></a>
               </li>
             {% endif %} 
          </ul>
