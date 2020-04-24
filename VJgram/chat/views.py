@@ -30,7 +30,7 @@ class GroupCreateView(CreateView):
     def form_valid(self,form):
         form.instance.creator = self.request.user
         return super().form_valid(form)
-        
+
 
 class GroupUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
     model = Group
@@ -113,8 +113,9 @@ def joinGroup(request):
 @csrf_exempt
 def leaveGroup (request):
         if request.method == 'POST':
-               gpm_id = request.POST['group_id']
-               GroupMember.objects.get(gpm_id=gpm_id).delete()# Deleting GroupMember Object
+               group_id = request.POST['group_id']
+               user = request.user
+               GroupMember.objects.get(group_id=group_id,member=user).delete()# Deleting GroupMember Object
                return HttpResponse("Success!")
         else:
                return HttpResponse("Request method is not a GET")

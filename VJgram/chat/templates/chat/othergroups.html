@@ -2,15 +2,18 @@
 {% block content %}
 
 {% for group in othergroups%}
-	<div class="card" style="width: 18rem;">
+
+	<div class="card" style="width: 18rem;" id="{{group.group_id}}">
 	<div class="card-body">
-	<h5 class="card-title">{{group.title}}</h5>
+	<img class="rounded-circle article-img" height=50 width=50 src="{{group.icon.url}}">
+	<h5 class="card-title">{{group.title}} created by {{group.creator}} on {{group.date_created}}</h5>
 	<h6 class="card-subtitle mb-2 text-muted">{{group.description}}</h6>
 	<button type="button" class="joingroup" data-catid="{{group.group_id}}">
 		join group
 	</button>
 	</div>
 	</div>
+
 {% endfor %}
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
@@ -24,10 +27,7 @@ $(function()
 			var catid;
 			catid = $(this).attr("data-catid");
 			$(this).css("background-color","green");
-			/*$.post("likepost",{'post_id':catid},function()
-				{
-				alert("post in ajax is executing xorrectly")
-			});*/
+			$(this).parent().parent().html("")
 			$.ajax
 			(
 				{
@@ -37,13 +37,11 @@ $(function()
 						{
 							group_id: catid
 						},
-
 				}
 			)
 			console.log("this was executed correctly");
 		}
 	)
-
 });
 </script>
 {% endblock %}
