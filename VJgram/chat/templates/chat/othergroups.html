@@ -44,4 +44,35 @@ $(function()
 	)
 });
 </script>
+<div class="col-md-4">
+    <div class="content-section">
+        <h3>Our Sidebar</h3>
+        <p class='text-muted'>
+            <ul class="list-group">
+						    <li class="list-group-item list-group-item-light">
+								    <a class="nav-link" href="{% url 'post-create' %}"><b>Want to Post?</b></a>
+						    </li>
+								<li class="list-group-item list-group-item-light">
+								    <a class="nav-link" href="{% url 'user-posts'%}"><b>Want to see your posts?</b></a>
+						    </li>
+								<li class="list-group-item list-group-item-light">
+								    <a class="nav-link" href="{% url 'friends' user.username %}"><b>Want to see your friends?</b></a>
+						    </li>
+								<li class="list-group-item list-group-item-light">
+								    <a class="nav-link" href="{% url 'otherusers' %}"><b>Want to add some new friends?</b></a>
+						    </li>
+								<li class="list-group-item list-group-item-light">
+								    <a class="nav-link" href="{% url 'group-create' %}"><b>Want to make a group?</b></a>
+						    </li>
+								<li class="list-group-item list-group-item-light">s
+                    <a class="nav-link" href="{% url 'groups' %}"><b>Want to see your groups?</b></a>
+                </li>
+								<li class="list-group-item list-group-item-light">
+										<a class="nav-link" href="{% url 'user-groups' %}"><b>Want to see groups you created?</b></a>
+								</li>
+
+            </ul>
+        </p>
+    </div>
+</div>
 {% endblock %}

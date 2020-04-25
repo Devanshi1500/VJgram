@@ -76,9 +76,13 @@ class UserGroupListView(ListView):
     template_name = 'chat/user_groups.html'
     context_object_name = 'groups'
 
-    def get_queryset(self):
-        user = get_object_or_404(User,username=self.kwargs.get('username'))
-        return Group.objects.filter(creator=user).order_by('-date_created')
+    def get_context_data(self, **kwargs):
+        context = super(UserGroupListView, self).get_context_data(**kwargs)
+        user = self.request.user
+        g = [group for group in Group.objects.filter(creator=user)]
+        context['g'] = g
+        return context
+
 
 class OthersGroupsListView(ListView):
     model = Group

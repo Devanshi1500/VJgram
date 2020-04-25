@@ -31,9 +31,15 @@ class UserPostListView(ListView):
     template_name = 'VJgramapp/user_posts.html'
     context_object_name = 'posts'
 
-    def get_queryset(self):
-        user = get_object_or_404(User,username=self.kwargs.get('username'))
-        return Post.objects.filter(author=user).order_by('-date_posted')
+    def get_context_data(self, **kwargs):
+        context = super(UserPostListView, self).get_context_data(**kwargs)
+        user = self.request.user
+        p = [post for post in Post.objects.filter(author=user)]
+        context['p'] = p
+        context['comments'] = Comment.objects.all()
+        context['likes'] = Like.objects.all()
+        # And so on for more models
+        return context
 
 class PostDetailView(DetailView):
     model = Post

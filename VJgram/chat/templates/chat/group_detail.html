@@ -3,10 +3,7 @@
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <style>
-	body {
-	  font-size: 1em;
-	  font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-	}
+
 
 	input:hover,button:hover{
 		transform: translate(2px,2px);
@@ -59,9 +56,8 @@
 	}
 
 	.speech-bubble {
-		position : relative;
-	  background: #016464;
-		
+	  background-color: #016464;
+
   }
 
   .card-header{
@@ -74,54 +70,82 @@
 
 
   </style>
-	<div class="card-header">
-<div class="row">
-	<div class="card-body">
-		<h2><a class="article-title">{{ object.title }}</a></h2>
-		<p class="article-content">{{ object.description }}</p>
-
-		{% if group.creator == user %}
-		  <div>
-		  <button class="btn btn-secondary btn-sm mt-1" style="padding: .65% 4.5%;" href="{%url 'group-update' group.group_id %}">Update</button>
-		  <button class="btn btn-danger btn-sm mt-1" style="padding: .65% 4.5%;" href="{%url 'group-delete' group.group_id %}">Delete</button>
-		  </div>
-		{% endif %}
-	</div>
+<div class="card-header">
+    <div class="row">
+        <div class="card-body">
+            <h2>
+                <a class="article-title">
+                    {{ object.title }}
+                </a>
+            </h2>
+            <p class="article-content">
+                {{ object.description }}
+            </p>
+            {% if group.creator == user %}
+                <div>
+                    <button class="btn btn-secondary btn-sm mt-1" style="padding: .65% 4.5%;" href="{%url 'group-update' group.group_id %}">
+                        Update
+                    </button>
+                    <button class="btn btn-danger btn-sm mt-1" style="padding: .65% 4.5%;" href="{%url 'group-delete' group.group_id %}">
+                        Delete
+                    </button>
+                </div>
+            {% endif %}
+        </div>
 </div>
 
 
 <div class="container" id="chat">
-	<div class="messages">
-		<ul style="list-style-type: none;">
-		{% for chat in chats %}
-			<li class="speech-bubble">
-				<span style="float: left;"><b>{{chat.user_id_from}}: </b></span>
-				<span>{{chat.content}}</span><br>
-				<span style="font-size: 10px; float: right;">{{chat.date_created}}</span>
-			</li><br>
-		{% endfor %}
-		<div class="chatting">
-			<li class="speech-bubble">
-				<span style="float: left;"><b>{{chat.user_id_from}}: </b></span>
-				<span>{{chat.content}}</span><br>
-				<span style="font-size: 10px; float: right;">{{chat.date_created}}</span>
-			</li><br>
-		</div>
-	</ul>
-	</div>
-<br>
-		<form method="POST" style="text-align: center;">
-			{% csrf_token %}
-
-		<input class="form-group" type="text" id="fname" data-commentid="{{ group.group_id }}" style="width: 50%; padding: 5px; border-radius: 10px;">
-		<button type="button" class="postbutton btn btn-outline-info" style="padding: .85% 6.5%;" id="comment" data-commentid="{{ group.group_id }}" >
-			Post
-		</button>
-		</form>
+    <div class="messages">
+        <ul>
+            {% for chat in chats %}
+                <li>
+                    <span style="float: left;color:white">
+                        <b>
+                            {{chat.user_id_from}}:
+                        </b>
+                    </span>
+                    <span style="color:white;">
+                        {{chat.content}}
+                    </span>
+                    <br>
+                    <span style="font-size: 10px; float: right;">
+                        {{chat.date_created}}
+                    </span>
+                </li>
+                <br>
+            {% endfor %}
+            <div class="chatting">
+                <li>
+                    <span style="float: left;">
+                        <b>
+                            {{chat.user_id_from}}:
+                        </b>
+                    </span>
+                    <span>
+                        {{chat.content}}
+                    </span>
+                    <br>
+                    <span style="font-size: 10px; float: right;">
+                        {{chat.date_created}}
+                    </span>
+                </li>
+                <br>
+            </div>
+        </ul>
+    </div>
+    <br>
+    <form method="POST" style="text-align: center;">
+    {% csrf_token %}
+        <input class="form-group" type="text" id="fname" data-commentid="{{ group.group_id }}" style="width: 50%; padding: 5px; border-radius: 10px;">
+        <button type="button" class="postbutton btn btn-outline-info" style="padding: .85% 6.5%;" id="comment" data-commentid="{{ group.group_id }}" >
+            Post
+        </button>
+    </form>
 		<div>
-		{% for member in mt %}
-				{{member}}
-		{% endfor %}
+				{% for member in mt %}
+						{{member}}
+				{% endfor %}
 		</div>
 </div>
 
@@ -170,5 +194,37 @@ $(function()
 )
 });
 </script>
-
+<div class="col-md-4">
+		<div class="content-section">
+				<h3>Our Sidebar</h3>
+				<p class='text-muted'>
+						<ul class="list-group">
+								<li class="list-group-item list-group-item-light">
+										<a class="nav-link" href="{% url 'post-create' %}"><b>Want to Post?</b></a>
+								</li>
+								<li class="list-group-item list-group-item-light">
+										<a class="nav-link" href="{% url 'user-posts'%}"><b>Want to see your posts?</b></a>
+								</li>
+								<li class="list-group-item list-group-item-light">
+										<a class="nav-link" href="{% url 'friends' user.username %}"><b>Want to see your friends?</b></a>
+								</li>
+								<li class="list-group-item list-group-item-light">
+										<a class="nav-link" href="{% url 'otherusers' %}"><b>Want to add some new friends?</b></a>
+								</li>
+								<li class="list-group-item list-group-item-light">
+										<a class="nav-link" href="{% url 'group-create' %}"><b>Want to make a group?</b></a>
+								</li>
+								<li class="list-group-item list-group-item-light">
+										<a class="nav-link" href="{% url 'groups' %}"><b>Want to see your groups?</b></a>
+								</li>
+								<li class="list-group-item list-group-item-light">
+										<a class="nav-link" href="{% url 'othergroups' %}"><b>Want to join some new group?</b></a>
+								</li>
+								<li class="list-group-item list-group-item-light">
+										<a class="nav-link" href="{% url 'user-groups' %}"><b>Want to see groups you created?</b></a>
+								</li>
+						</ul>
+				</p>
+		</div>
+</div>
 {% endblock %}
