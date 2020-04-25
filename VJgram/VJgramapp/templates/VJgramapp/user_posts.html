@@ -11,67 +11,80 @@
 <h1 class="mb-3">Posts by {{view.kwargs.username}}</h1>
 {% for post in posts %}
     {% if post in p %}
-        <article class="media content-section article">
+		<div class="card">
+				<div class="row">
+						<div style="padding-left: 15px;">
             <img class="rounded-circle article-img" height=25 width=25 src="{{ post.author.profile.image.url }}">
-						<h2 style="padding-top: 7px;"><b><a style="color: rgb(0, 90, 90);" href="{% url 'user-posts' %}">{{ post.author }}</a></b></h2>
-            <div class="media-body">
-                <div class="article-metadata">
-                    <small class="text-muted">
-                        {{ post.date_posted }}
-                    </small>
-                </div>
-                <img class="article-img" height =50 width=100 src="{{ post.image.url }}">
-                <h2>
-                    <a class="article-title" href="{% url 'post-detail' post.id %}">
-                        {{ post.title }}
-                    </a>
-                </h2>
-                <p class="article-content">
-                    {{ post.content }}
-                </p>
-            </div>
-            <div class="btn-group">
-                {% for like in likes %}
-                    {% if like.post_id == post %}
-                        <button type="button" color="blue">
-                            Like
-                        </button>
-                    {% endif %}
-                    {% empty %}
-                        <button type="button" class="likebutton btn btn-danger" id="like{{post.id}}" href="#" data-catid="{{ post.id }}" >
-                            Like
-                        </button>
-                {% endfor %}
-            </div>
-            <div class="container" id="{{post.id}}">
-                {% for comment in comments %}
-                    {% if comment.post_id == post %}
-                        <p class="article-content" style="padding: 5px; font-size: 1rem;">
-                            {{ comment.user_id }}
-                        </p>
-                        <br>
-                        <p class="article-content" style="padding: 5px; font-size: 1rem;">
-                            {{ comment.content }}
-                        </p>
-                        <br>
-                        <span class="article-content" style="font-size: x-small; text-align: right;">
-                            <span>
-                                {{ comment.date_created }}
-                            </span>
-                        </span>
-                    {% endif%}
-                {% endfor %}
-                <br>
-                <br>
-                <form method="POST">
-                    {% csrf_token %}
-                    <input placeholder="New Comment" type="text" id="fname" data-commentid="{{ post.id }}">
-                    <button type="button" class="commentbutton" id="comment" href="#" data-commentid="{{ post.id }}" >
-                    Post
+						</div>
+						<div class="col-md-4">
+								<h2 style="padding-top: 7px;">
+										<b>
+												<a style="color: rgb(0, 90, 90);" href="{% url 'user-posts' %}">
+														{{ post.author }}
+												</a>
+										</b>
+								</h2>
+						</div>
+				</div>
+				<br>
+				<div style="text-align: center; background-color: black; border-radius: 10px;">
+						<img width="250" height="250" src="{{ post.image.url }}" alt="Card image cap"><br>
+				</div>
+				<b>
+						<a class="article-title" style="color: rgb(0, 90, 90); font-size: 2rem;" href="{% url 'post-detail' post.id %}">
+								{{ post.title }}
+						</a>
+				</b>
+				<span class="article-content">
+						{{ post.content }}
+				</span>
+        <div class="btn-group">
+            {% for like in likes %}
+                {% if like.post_id == post %}
+                    <button type="button" color="blue">
+                        Like
                     </button>
-                </form>
-            </div>
-        </article>
+                {% endif %}
+                {% empty %}
+                    <button type="button" class="likebutton btn btn-danger" id="like{{post.id}}" href="#" data-catid="{{ post.id }}" >
+                        Like
+                    </button>
+            {% endfor %}
+        </div>
+        <div class="container" id="{{post.id}}">
+
+			          {% for comment in comments %}
+			              {% if comment.post_id == post %}
+			                  <p class="article-content" style="padding: 5px; font-size: 1rem;">
+			                      {{ comment.user_id }}
+			                  </p>
+			                  <br>
+			                  <p class="article-content" style="padding: 5px; font-size: 1rem;">
+			                      {{ comment.content }}
+			                  </p>
+			                  <br>
+			                  <span class="article-content" style="font-size: x-small; text-align: right;">
+			                      <span>
+			                          {{ comment.date_created }}
+			                      </span>
+			                  </span>
+			              {% endif%}
+			          {% endfor %}
+								<div class="c" id="c">
+							</div>
+            <br>
+            <br>
+            <form method="POST">
+                {% csrf_token %}
+
+                <input placeholder="New Comment" type="text" id="fname" data-commentid="{{ post.id }}">
+                <button type="button" class="commentbutton" id="commentbutton" href="#" data-commentid="{{ post.id }}" >
+                Post
+                </button>
+
+            </form>
+        </div>
+    </div>
     {% endif %}
 {% endfor%}
 	<div class="col-md-4">
@@ -136,6 +149,7 @@
 	            var catid;
 	            catid = $(this).attr("data-commentid");
 	            $(this).css("background-color","blue");
+							var t = $(this);
 	            var cid;
 	            cid = $(this).attr("data-commentid");
 	            var comment_data;
@@ -153,11 +167,10 @@
 				        	},
 									success:function(data)
 									{
-										var prevState = $(this).parent().parent().html();
-										message = user.username + " : " + comment_data;
-										if(prevState.length >4)
-										{ prevState = prevState+"<br>";}
-										$(this).parent().parent().html(prevState + message );
+										var prevState = t.parent().parent().find("#c").html();
+										console.log(prevState.length);
+										var message = data.user_id + " : " + data.content;
+										t.parent().parent().find("#c").html(prevState + "<br>" + message );
 									}
 				    }
 				)

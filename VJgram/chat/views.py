@@ -5,7 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView ,DeleteView ,UpdateView
 from django.http import HttpResponse, request,JsonResponse
-from .models import Message,GroupMember,Group,MessageTo
+from .models import Message,GroupMember,Group
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 

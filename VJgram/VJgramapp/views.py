@@ -7,6 +7,7 @@ from django.views.generic import ListView, DetailView, CreateView ,DeleteView ,U
 from django.http import HttpResponse, request
 from .models import Post,Comment,Like,Friend
 from .forms import PostUpdateForm,CommentForm
+from django.http import HttpResponse, request,JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 
@@ -20,9 +21,10 @@ class PostListView(ListView,):
         context = super(PostListView, self).get_context_data(**kwargs)
         user = self.request.user
         friends = [friend.following for friend in Friend.objects.filter(user=user)]
+        likes = [like for like in Like.objects.filter(user=user_id)]
         context['friends'] = friends
         context['comments'] = Comment.objects.all()
-        context['likes'] = Like.objects.all()
+        context['likes'] = likes
         # And so on for more models
         return context
 
@@ -158,11 +160,12 @@ def commentPost(request):
         if request.method == 'POST':
             post_id = request.POST['post_id']
             user_id = request.user
+            queryset = user_id.username
             comment = request.POST.get('content',False)
             commentedpost = Post.objects.get(pk=post_id) #getting the commented posts
             m = Comment(post_id=commentedpost,user_id=user_id,content=comment) # Creating Comment Object
             m.save()
-            return HttpResponse("Success!") # Sending an success response
+            return JsonResponse({'user_id':queryset,'content':comment})
 
         else:
 
