@@ -99,6 +99,7 @@
 }
 </style>
 <div class="jumbotron">
+<<<<<<< HEAD
 		<div class="row">
 			<!-- <p class="article-content">{{ object.id }}</p> -->
 			<div style="padding-left: 15px;">
@@ -142,17 +143,98 @@
 		  </div>
 		</div>
 </div><br><br><br><br>
+=======
+    <div class="row">
+        <div style="padding-left: 15px;">
+            <img class="rounded-circle article-img" height=50 width=50 src="{{ object.author.profile.image.url }}">
+        </div>
+        <div class="col-md-4">
+            <h2 style="padding-top: 7px;">
+                <b>
+                    <a style="color: rgb(0, 90, 90);" href="{% url 'user-posts'%}">
+                        {{ object.author }}
+                    </a>
+                </b>
+            </h2>
+        </div>
+    </div>
+    <br>
+    <div style="text-align: center; background-color: black; border-radius: 10px;">
+        <img width="250" height="250" src="{{ object.image.url }}" alt="Card image cap">
+        <br>
+    </div>
+    <b>
+        <a class="article-title" style="color: rgb(0, 90, 90); font-size: 2rem;" href="{% url 'post-detail' post.id %}">
+            {{ object.title }}
+        </a>
+    </b>
+    &nbsp;
+    <span class="article-content">
+        {{ object.content }}
+    </span>
+    <br>
+    <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Like
+    </button>
+    <div class="container">
+        {% for comment in comments %}
+            <p class="article-content">
+                {{ comment.user_id }}
+            </p>
+            <p class="article-content">
+                {{ comment.content }}
+            </p>
+        {% endfor %}
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+>>>>>>> 68582ff73b727dcf4752c8304dcb57b38b3822bc
 {% if post.author == user%}
-		  <div style="text-align: right;">
-		  <a class="btn btn-secondary" href="{%url 'post-update' post.id %}" >Update</a>&nbsp;&nbsp;&nbsp;
-		  <a class="btn btn-danger" href="{%url 'post-delete' post.id %}"> Delete</a>
-		  </div>
+    <div style="text-align: right;">
+        <a class="btn btn-secondary" href="{%url 'post-update' post.id %}" >Update</a>&nbsp;&nbsp;&nbsp;
+        <a class="btn btn-danger" href="{%url 'post-delete' post.id %}"> Delete</a>
+    </div>
 {% endif %}
 <br>
 <small class="text-muted" style="font-size: medium;">Posted on: {{ object.date_posted }}</small>
-	
+
+<div class="col-md-4">
+		<div class="content-section">
+				<h3>Our Sidebar</h3>
+				<p class='text-muted'>
+						<ul class="list-group">
+								<li class="list-group-item list-group-item-light">
+										<a class="nav-link" href="{% url 'post-create' %}"><b>Want to Post?</b></a>
+								</li>
+								<li class="list-group-item list-group-item-light">
+										<a class="nav-link" href="{% url 'user-posts' %}"><b>Want to see your posts?</b></a>
+								</li>
+								<li class="list-group-item list-group-item-light">
+										<a class="nav-link" href="{% url 'friends' user.username %}"><b>Want to see your friends?</b></a>
+								</li>
+								<li class="list-group-item list-group-item-light">
+										<a class="nav-link" href="{% url 'otherusers' %}"><b>Want to add some new friends?</b></a>
+								</li>
+								<li class="list-group-item list-group-item-light">
+										<a class="nav-link" href="{% url 'group-create' %}"><b>Want to make a group?</b></a>
+								</li>
+								<li class="list-group-item list-group-item-light">s
+										<a class="nav-link" href="{% url 'groups' %}"><b>Want to see your groups?</b></a>
+								</li>
+								<li class="list-group-item list-group-item-light">
+										<a class="nav-link" href="{% url 'othergroups' %}"><b>Want to join some new group?</b></a>
+								</li>
+								<li class="list-group-item list-group-item-light">
+										<a class="nav-link" href="{% url 'user-groups' %}"><b>Want to see groups you created?</b></a>
+								</li>
+						</ul>
+				</p>
+		</div>
 </div>
-</div>
+<<<<<<< HEAD
 
 <!--JS-->
 <script>
@@ -176,5 +258,68 @@ var span = document.getElementsByClassName("close")[0];
 span.onclick = function() { 
   modal.style.display = "none";
 }
+=======
+<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
+<script type="text/javascript">
+$(function()
+{
+		$('.likebutton').click
+		(
+				function()
+				{
+						var catid;
+						catid = $(this).attr("data-catid");
+						$(this).css("background-color","green");
+						$.ajax
+						(
+								{
+										type:"POST",
+										url: "/likepost",
+										data:
+												{
+														post_id: catid
+												},
+								}
+						)
+						console.log("this was executed correctly");
+				}
+		)
+		$('#commentbutton').click
+		(
+				function()
+				{
+						var catid;
+						catid = $(this).attr("data-commentid");
+						$(this).css("background-color","blue");
+						var cid;
+						cid = $(this).attr("data-commentid");
+						var comment_data;
+						comment_data = $(this).parent().find("#fname").val();
+						console.log(comment_data)
+						$.ajax
+						(
+								{
+									type:"POST",
+									url: "/commentPost",
+									data:
+												{   // < here
+											'post_id': catid,
+							'content': comment_data,
+								},
+								success:function(data)
+								{
+									var prevState = $(this).parent().parent().html();
+									message = user.username + " : " + comment_data;
+									if(prevState.length >4)
+									{ prevState = prevState+"<br>";}
+									$(this).parent().parent().html(prevState + message );
+								}
+					}
+			)
+			console.log("this comment executed correctly");
+		}
+	)
+});
+>>>>>>> 68582ff73b727dcf4752c8304dcb57b38b3822bc
 </script>
 {% endblock%}

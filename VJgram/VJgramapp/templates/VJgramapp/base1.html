@@ -13,7 +13,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 <script src="https://kit.fontawesome.com/be0ad558f3.js" crossorigin="anonymous"></script>
 
-   
+
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -26,13 +26,13 @@ ul {
   padding: 0;
 }
 
-li {
+#a li {
   display: inline;
 }
 
 
 body {
-  
+
   background-color: #f1f1f1;
   /* background-image: url('https://www.freelogodesign.org/file/app/client/thumb/3a85ea62-5604-4dfa-a3f0-b5f3f1b9114e_200x200.png?1586357230022'); */
   background-repeat: no-repeat;
@@ -55,14 +55,9 @@ html, body, h1, h2, h3, h4, h5 {font-family: 'Gill Sans', 'Gill Sans MT', Calibr
       padding: 15px;
       width:auto;
     }
-    
-    @media screen and (max-width: 100%) {
-      .sidenav {
-        height: auto;
-        padding: 15px;
-        width: 120%;
-      }
-      .row.content {height:auto;} 
+
+
+      .row.content {height:auto;}
     }
     .container i{
       transition: .4s;
@@ -101,22 +96,27 @@ html, body, h1, h2, h3, h4, h5 {font-family: 'Gill Sans', 'Gill Sans MT', Calibr
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-      
+
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
           <ul class="navbar-nav mr-auto">
+<<<<<<< HEAD
            
             <li class="nav-item">
+=======
+            <li class="nav-item" id="a">
+>>>>>>> 68582ff73b727dcf4752c8304dcb57b38b3822bc
               <a class="nav-link" href="{% url 'mainpage' %}"><b>Home</b></a>
             </li>
-            <li class="nav-item">
+            <li class="nav-item" id="a">
                 <a class="nav-link" href="{% url 'about' %}"><b>About</b></a>
-              </li>  
+              </li>
           </ul>
           <ul class="navbar-nav">
             {% if user.is_authenticated %}
-            <li class="nav-item">
+            <li class="nav-item" id="a">
               <a class="nav-link" href="{% url 'profile' %}"><b>Profile</b></a>
             </li>
+<<<<<<< HEAD
              <li class="nav-item">
               <a class="nav-link" href="{% url 'post-create' %}"><b>New Post</b></a>
             </li>
@@ -129,8 +129,19 @@ html, body, h1, h2, h3, h4, h5 {font-family: 'Gill Sans', 'Gill Sans MT', Calibr
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="{% url 'register' %}"><span class="glyphicon glyphicon-user"></span><b>Sign Up</b></a>
+=======
+            <li class="nav-item" id="a">
+              <a class="nav-link" href="{% url 'logout' %}"><b>Logout</b></a>
+            </li>
+            {% else %}
+            <li class="nav-item" id="a">
+                <a class="nav-link" href="{% url 'login' %}"><b>Login</b>></a>
               </li>
-            {% endif %} 
+              <li class="nav-item" id="a">
+                <a class="nav-link" href="{% url 'register' %}"><b>Register</b></a>
+>>>>>>> 68582ff73b727dcf4752c8304dcb57b38b3822bc
+              </li>
+            {% endif %}
          </ul>
         </div>
       </nav>
@@ -139,11 +150,11 @@ html, body, h1, h2, h3, h4, h5 {font-family: 'Gill Sans', 'Gill Sans MT', Calibr
     </div>
 
           {% block content %}
-          
-          
+
+
           {% endblock %}
-        
-       
+
+
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>

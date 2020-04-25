@@ -11,7 +11,7 @@
 		margin: 0 30% 0 30%;
 		border: 1px solid #dddddd;
 		border-bottom: 1px solid teal;
-		border-left: 5px solid teal; 
+		border-left: 5px solid teal;
 		border-radius: 15px;
 		padding: 15px;
 	}
@@ -22,31 +22,63 @@
 
 	.title{
 		margin-left: 10px;
-		font-size: 2rem; 
+		font-size: 2rem;
 		vertical-align: -webkit-baseline-middle;
 	}
 </style>
 <div>
 
-	<h1 class="mb-3" style="text-align: center; color: rgb(0, 92, 92); padding: 20px 0; margin: 0 25% 10px 25%; border-bottom: 1px solid #eee;">Groups created by {{view.kwargs.username}}</h1>
-	
+	<h1 class="mb-3" style="text-align: center; color: rgb(0, 92, 92); padding: 20px 0; margin: 0 25% 10px 25%; border-bottom: 1px solid #eee;">Groups created by you</h1>
+
 	{% for group in groups %}
+	{% if group in g %}
 	<article class="media content-section center hoverable">
 	  <div class="media-body">
 		<div class="article-metadata">
 			<img class="rounded-circle article-img" style="border-radius: 50%;" height =35 width=35 src="{{ group.icon.url }}">
 			<b><a class="article-title title" style="color: rgb(0, 100, 100);" href="{% url 'group-detail' group.group_id %}">{{ group.title }}</a></b>
 			<br>
-		  
+
 		</div>
-		
+
 		<p class="article-content"> Description: {{ group.description }}</p>
 		<small class="mr-2 text-muted"> {{ group.created }}</small>
 		  <small class="text-muted">Created on: {{ group.date_created }}</small>
 	  </div>
 	</article>
 	<br>
+	</div>
+	{%endif%}
 	{% endfor%}
-</div>
 
+<div class="col-md-4">
+    <div class="content-section">
+        <h3>Our Sidebar</h3>
+        <p class='text-muted'>
+            <ul class="list-group">
+						    <li class="list-group-item list-group-item-light">
+								    <a class="nav-link" href="{% url 'post-create' %}"><b>Want to Post?</b></a>
+						    </li>
+								<li class="list-group-item list-group-item-light">
+								    <a class="nav-link" href="{% url 'user-posts'%}"><b>Want to see your posts?</b></a>
+						    </li>
+								<li class="list-group-item list-group-item-light">
+								    <a class="nav-link" href="{% url 'friends' user.username %}"><b>Want to see your friends?</b></a>
+						    </li>
+								<li class="list-group-item list-group-item-light">
+								    <a class="nav-link" href="{% url 'otherusers' %}"><b>Want to add some new friends?</b></a>
+						    </li>
+								<li class="list-group-item list-group-item-light">
+								    <a class="nav-link" href="{% url 'group-create' %}"><b>Want to make a group?</b></a>
+						    </li>
+								<li class="list-group-item list-group-item-light">s
+                    <a class="nav-link" href="{% url 'groups' %}"><b>Want to see your groups?</b></a>
+                </li>
+								<li class="list-group-item list-group-item-light">
+										<a class="nav-link" href="{% url 'othergroups' %}"><b>Want to join some new group?</b></a>
+								</li>
+            </ul>
+        </p>
+    </div>
+</div>
 {% endblock%}

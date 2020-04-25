@@ -1,19 +1,54 @@
+{% extends 'VJgramapp/base1.html' %}
+{% block content %}
 
 {% for group in groups%}
 {% if group in g %}
-{{group.creator}}
-{{group.description}}
-{{group.title}}
-{{group.icon.url}}
-{{group.date_created}}
+
+<div class="card" style="width: 18rem;" id="{{group.group_id}}">
+<div class="card-body">
+<img class="rounded-circle article-img" height=50 width=50 src="{{group.icon.url}}">
+<b><a class="article-title title" style="color: rgb(0, 100, 100);" href="{% url 'group-detail' group.group_id %}">{{ group.title }}</a></b>
+<h5 class="card-title">Created by {{group.creator}} on {{group.date_created}}</h5>
+<h6 class="card-subtitle mb-2 text-muted">{{group.description}}</h6>
 <button type="button" class="leavegroup" data-catid="{{group.group_id}}">
   leaveGroup
 </button>
+</div>
+</div>
+
 {%endif%}
 
-	</div>
-	</div>
 {% endfor %}
+<div class="col-md-4">
+    <div class="content-section">
+        <h3>Our Sidebar</h3>
+        <p class='text-muted'>
+            <ul class="list-group">
+						    <li class="list-group-item list-group-item-light">
+								    <a class="nav-link" href="{% url 'post-create' %}"><b>Want to Post?</b></a>
+						    </li>
+                <li class="list-group-item list-group-item-light">
+								    <a class="nav-link" href="{% url 'user-posts'%}"><b>Want to see your posts?</b></a>
+						    </li>
+								<li class="list-group-item list-group-item-light">
+								    <a class="nav-link" href="{% url 'friends' user.username %}"><b>Want to see your friends?</b></a>
+						    </li>
+								<li class="list-group-item list-group-item-light">
+								    <a class="nav-link" href="{% url 'otherusers' %}"><b>Want to add some new friends?</b></a>
+						    </li>
+                <li class="list-group-item list-group-item-light">
+                    <a class="nav-link" href="{% url 'othergroups' %}"><b>Want to join some new group?</b></a>
+                </li>
+								<li class="list-group-item list-group-item-light">
+								    <a class="nav-link" href="{% url 'group-create' %}"><b>Want to make a group?</b></a>
+						    </li>
+								<li class="list-group-item list-group-item-light">
+                    <a class="nav-link" href="{% url 'user-groups' %}"><b>Want to see groups you created?</b></a>
+                </li>
+            </ul>
+        </p>
+    </div>
+</div>
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 $(function()
@@ -26,6 +61,7 @@ $(function()
 			var catid;
 			catid = $(this).attr("data-catid");
 			$(this).css("background-color","green");
+      $(this).parent().parent().html("");
 			$.ajax
 			(
 				{
@@ -41,6 +77,6 @@ $(function()
 			console.log("this was executed correctly");
 		}
 	)
-
 });
 </script>
+{% endblock %}

@@ -15,7 +15,7 @@ urlpatterns=[
     path('group/<int:pk>/update/',GroupUpdateView.as_view(),name='group-update'),
     path('group/<int:pk>/delete/',GroupDeleteView.as_view(),name='group-delete'),
     path('othergroups',OthersGroupsListView.as_view(),name='othergroups'),
-    path('user/<str:username>',UserGroupListView.as_view(),name='user-groups'),
+    path('mycreatedgroups',UserGroupListView.as_view(),name='user-groups'),
     path('joingroup',views.joinGroup,name='joingroup'),
     path('leavegroup', views.leaveGroup, name='leavegroup'),
 ]

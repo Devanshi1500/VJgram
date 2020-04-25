@@ -7,6 +7,7 @@ from django.views.generic import ListView, DetailView, CreateView ,DeleteView ,U
 from django.http import HttpResponse, request
 from .models import Post,Comment,Like,Friend
 from .forms import PostUpdateForm,CommentForm
+from django.http import HttpResponse, request,JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 
@@ -20,9 +21,10 @@ class PostListView(ListView,):
         context = super(PostListView, self).get_context_data(**kwargs)
         user = self.request.user
         friends = [friend.following for friend in Friend.objects.filter(user=user)]
+        likes = [like for like in Like.objects.filter(user=user_id)]
         context['friends'] = friends
         context['comments'] = Comment.objects.all()
-        context['likes'] = Like.objects.all()
+        context['likes'] = likes
         # And so on for more models
         return context
 
@@ -31,9 +33,15 @@ class UserPostListView(ListView):
     template_name = 'VJgramapp/user_posts.html'
     context_object_name = 'posts'
 
-    def get_queryset(self):
-        user = get_object_or_404(User,username=self.kwargs.get('username'))
-        return Post.objects.filter(author=user).order_by('-date_posted')
+    def get_context_data(self, **kwargs):
+        context = super(UserPostListView, self).get_context_data(**kwargs)
+        user = self.request.user
+        p = [post for post in Post.objects.filter(author=user)]
+        context['p'] = p
+        context['comments'] = Comment.objects.all()
+        context['likes'] = Like.objects.all()
+        # And so on for more models
+        return context
 
 class PostDetailView(DetailView):
     model = Post
@@ -121,7 +129,7 @@ def addFriend(request):
                user_id = request.POST['user_id']
                user = request.user
                usert = User.objects.get(id=user_id)
-               m = Friend(user=user,following=usert) # Creating Like Object
+               m = Friend(user=user,following=usert) # Creating Friend Object
                m.save()
                return HttpResponse("Success!") # Sending an success response
         else:
@@ -130,7 +138,7 @@ def addFriend(request):
 def removeFriend(request):
         if request.method == 'POST':
                friend_id = request.POST['friend_id']
-               Friend.objects.get(friend_id=friend_id).delete()
+               Friend.objects.get(friend_id=friend_id).delete() # Deleting Friend Object
                return HttpResponse("Success!")
         else:
                return HttpResponse("Request method is not a GET")
@@ -152,11 +160,12 @@ def commentPost(request):
         if request.method == 'POST':
             post_id = request.POST['post_id']
             user_id = request.user
+            queryset = user_id.username
             comment = request.POST.get('content',False)
-            likedpost = Post.objects.get(pk=post_id) #getting the liked posts
-            m = Comment(post_id=likedpost,user_id=user_id,content=comment) # Creating Like Object
+            commentedpost = Post.objects.get(pk=post_id) #getting the commented posts
+            m = Comment(post_id=commentedpost,user_id=user_id,content=comment) # Creating Comment Object
             m.save()
-            return HttpResponse("Success!") # Sending an success response
+            return JsonResponse({'user_id':queryset,'content':comment})
 
         else:
 
