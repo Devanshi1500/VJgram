@@ -42,7 +42,7 @@
 									    <a class="nav-link" href="{% url 'post-create' %}"><b>Want to Post?</b></a>
 							    </li>
 									<li class="list-group-item">
-									    <a class="nav-link" href="{% url 'user-posts'%}"><b>Want to see your posts?</b></a>
+									    <a class="nav-link" href="{% url 'user-posts' user.username%}"><b>Want to see your posts?</b></a>
 							    </li>
 									<li class="list-group-item">
 									    <a class="nav-link" href="{% url 'friends' user.username %}"><b>Want to see your friends?</b></a>
@@ -77,16 +77,18 @@
 						</legend>
 						{{ form|crispy}}
 					</fieldset>
+          <div class="well text-muted text-center" style="padding-top: 4rem; padding-bottom: 4rem;">
+
 					<div class="form-group"  style="text-align: center;">
 						<button class="btn btn-outline-info" type="submit">
 							Create New Group
 						</button>
 					</div>
 					</form>
-				</div> 
+				</div>
 				</div>
 	</div>
 </div>
 	</div>
-	
+
 {% endblock %}

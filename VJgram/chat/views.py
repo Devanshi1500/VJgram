@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import ListView, DetailView, CreateView ,DeleteView ,UpdateView
 from django.http import HttpResponse, request,JsonResponse
 from .models import Message,GroupMember,Group
+from .forms import GroupUpdateForm
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib import messages
 
@@ -48,11 +49,13 @@ class GroupUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
 
 class GroupDetailView(DetailView):
     model = Group
+
     def get_context_data(self, **kwargs):
         context = super(GroupDetailView, self).get_context_data(**kwargs)
+        groupid = get_object_or_404(Group,group_id=self.kwargs.get('pk'))
         user = self.request.user
-        messages = [message for message in Message.objects.filter(group=self.object)]
-        members = [member.member for member in GroupMember.objects.filter(group=self.object)]
+        messages = [message for message in Message.objects.filter(group=groupid)]
+        members = [member.member for member in GroupMember.objects.filter(group=groupid)]
         mt=[user.username for user in members]
         context['chats'] = messages
         context['members'] = mt
@@ -62,8 +65,8 @@ class GroupDetailView(DetailView):
 
 class GroupDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
     model = Group
-    #template_name = 'post_confirm_delete.html'
-    success_url = '/othergroups'
+    template_name = 'chat/group_confirm_delete.html'
+    success_url = 'chat/groups'
 
     def test_func(self):
         group = self.get_object()
@@ -134,7 +137,8 @@ def inputChat(request):
             group = Group.objects.get(group_id=group_id)
             m = Message(user_id_from=userd,content=content,group=group) # Creating Message Object
             m.save()
-            return JsonResponse({'user_id':queryset,'content':content}) # Sending an success response
+            date = [message.date_created for message in Message.objects.filter(user_id_from=userd,content=content)]
+            return JsonResponse({'user_id':queryset,'content':content,'date':date}) # Sending an success response
         else:
             return HttpResponse("Request method is not a GET")
 

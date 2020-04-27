@@ -5,14 +5,14 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns=[
-    path(r'^$',views.home),
+    path('',views.home),
     path('mainpage/',PostListView.as_view(),name='mainpage'),
     path('home/',views.home,name='home1'),
     path('post/<int:pk>',PostDetailView.as_view(),name='post-detail'),
     path('post/new/',PostCreateView.as_view(),name='post-create'),
     path('post/<int:pk>/update/',PostUpdateView.as_view(),name='post-update'),
     path('post/<int:pk>/delete/',PostDeleteView.as_view(),name='post-delete'),
-    path('myposts',UserPostListView.as_view(),name='user-posts'),
+    path('user/<str:username>',UserPostListView.as_view(),name='user-posts'),
     path('commentPost',views.commentPost,name='commentPost'),
     path('likepost', views.likePost, name='likepost'),
     path('removefriend', views.removeFriend, name='removefriend'),

@@ -5,10 +5,7 @@ from django.utils import timezone
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
-    image = models.ImageField(default='vjti.jpg',upload_to='media/profile_pics')
-    GENDER = (('M','Male'),('F','Female'),('O','Other'))
-    gender = models.CharField(default='O',max_length=1,choices=GENDER)
-    birth_date = models.DateField(default=timezone.now)
+    image = models.ImageField(default='vjti.jpg',upload_to='media/post_pics')
 
 
     def __str__(self):

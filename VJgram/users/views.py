@@ -25,17 +25,11 @@ def register(request):
 def profile(request):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST,instance=request.user)
-        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user)
-        if u_form.is_valid() and p_form.is_valid():
-            username = u_form.cleaned_data.get('username')
-            user_id = User.objects.get(username = username)
-            image = p_form.cleaned_data.get('image')
-            gender = p_form.cleaned_data.get('gender')
-            birth_date = p_form.cleaned_data.get('birth_date')
-            Profile.objects.filter(user = user_id).update(image = image,gender = gender, birth_date = birth_date)
-            email = u_form.cleaned_data.get('email')
-            User.objects.filter(username = username).update(username = username,email=email)
+        p_form = ProfileUpdateForm(request.POST, request.FILES, instance=request.user.profile)
 
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
             messages.success(request,f'Your account has been updated.')
             return redirect('profile')
     else:

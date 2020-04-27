@@ -51,7 +51,7 @@
 									    <a class="nav-link" href="{% url 'post-create' %}"><b>Want to Post?</b></a>
 							    </li>
 									<li class="list-group-item">
-									    <a class="nav-link" href="{% url 'user-posts'%}"><b>Want to see your posts?</b></a>
+									    <a class="nav-link" href="{% url 'user-posts' user.username%}"><b>Want to see your posts?</b></a>
 							    </li>
 									<li class="list-group-item">
 									    <a class="nav-link" href="{% url 'friends' user.username %}"><b>Want to see your friends?</b></a>
