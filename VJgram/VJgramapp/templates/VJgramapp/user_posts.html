@@ -42,33 +42,26 @@ body {
 	overflow:auto;
 
 }
+.
 
- @media screen and (max-width: 100%) {
-      .sidenav {
-        height: auto;
-        padding: 15px;
-        width: 120%;
-      }
-      .row.content {height:auto;}
-    }
-    .container i{
-    	transition: .4s;
-    }
-    .container:hover i{
-    	color:#f50057;
-    }
-.fas{
-    	color:#f50057;
-    	transition: .4s;
-    }
+.gallery{
+	margin:5px;
+	
+	float:left;
+	width:400px;
+	height:auto;
+	display:inline-block;
+border: 1px solid #dddddd;
+	
+	border-right: 7px solid teal;
+	
+	border-radius: 10px;
+	padding: 10px;
+	
 
-     #myImg {
-  border-radius: 5px;
-  cursor: pointer;
-  transition: 0.3s;
 }
 
-#myImg:hover {opacity: 0.7;}
+ 
 
 .modal {
   display: none;
@@ -130,13 +123,18 @@ body {
 }
 .card{
 	color: rgb(0, 90, 90);
-	margin: 3% 30%;
+	margin: 3% 3%;
 	border: 1px solid #dddddd;
 	border-left: 7px solid teal;
 	border-bottom: 1px solid teal;
 	border-radius: 20px;
 	padding: 20px;
+	width:120%;
+	height:100%;
+	display: grid;
+	grid-gap: 20px;
 }
+
 .close:hover,
 .close:focus {
   color: #bbb;
@@ -153,21 +151,15 @@ left: 0;
 background-color: rgb(0, 70, 70);;
 overflow-x: hidden;
 }
+.grid-container {
+  display: grid;
+  grid-template-columns: repeat(3, 10fr);
+  grid-template-rows: repeat(auto-fit);
+  grid-gap: 400px;
+}
 </style>
 <script src="https://kit.fontawesome.com/be0ad558f3.js" crossorigin="anonymous"></script>
-      <script>
-      	var btn = document.getElementById('btn');
-      	function Toggle(){
-      	if(btn.classList.contains("far")){
-      		btn.classList.remove("far");
-      		btn.classList.add("fas");
-      	}
-      	else{
-      		btn.classList.remove("fas");
-      		btn.classList.add("far");
-      	}
-      }
-      </script>
+      
 
 <div class="row">
 		<div class="col-md-3">
@@ -207,11 +199,22 @@ overflow-x: hidden;
 				<div style="text-align:center">
 				<h1 class="mb-3">  Posts by {{view.kwargs.username}}</h1>
 				</div>
+
 				<div class="jumbotron">
+					
 						<div class="w3-col m8" >
+				<div class="container" style="max-width:1200px;width:800px;
+	margin: auto;
+	background: #f2f2f2;
+	overflow:auto;display: grid;grid-template-columns:repeat(2,300px);grid-gap: 100px; " >
+
 								{% for post in posts %}
+
+								
+		
 								<div class="card">
 		                <div class="row">
+
 		                    <div style="padding-left: 15px;">
 		                        <img class="rounded-circle article-img" height=50 width=50 src="{{ post.author.profile.image.url }}">
 		                    </div>
@@ -227,7 +230,7 @@ overflow-x: hidden;
 		                </div>
 		                <br>
 		                <div style="text-align: center; background-color: black; border-radius: 10px;">
-		                    <img width="250" height="250" src="{{ post.image.url }}" alt="Card image cap"><br>
+		                    <img  onclick="onClick(this)" style="width:100%;cursor:pointer" width="250" height="250" src="{{ post.image.url }}" alt="Card image cap"><br>
 		                </div>
 		                <b>
 		                    <a class="article-title" style="color: rgb(0, 90, 90); font-size: 2rem;" href="{% url 'post-detail' post.id %}">
@@ -237,6 +240,12 @@ overflow-x: hidden;
 		                <span class="article-content">
 		                    {{ post.content }}
 		                </span>
+		                <div id="modal01" class="w3-modal" onclick="this.style.display='none'">
+  <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
+  <div class="w3-modal-content w3-animate-zoom">
+    <img id="img01" style="width:100%">
+  </div>
+</div>
 		                <div class="btn-group">
 		                    {% for like in likes %}
 		                        {% if like.post_id == post %}
@@ -245,7 +254,7 @@ overflow-x: hidden;
 		                            </button>
 		                        {% endif %}
 		                        {% empty %}
-		                            <button type="button" class="likebutton btn btn-danger" id="like{{post.id}}" href="#" data-catid="{{ post.id }}" >
+		                            <button type="button" class="likebutton btn btn-danger far fa-heart" id="like{{post.id}}" href="#" data-catid="{{ post.id }}" >
 		                                Like
 		                            </button>
 		                    {% endfor %}
@@ -277,7 +286,7 @@ overflow-x: hidden;
 						                {% csrf_token %}
 
 						                <input placeholder="New Comment" type="text" id="fname" data-commentid="{{ post.id }}">
-						                <button type="button" class="commentbutton" id="commentbutton" href="#" data-commentid="{{ post.id }}" >
+						                <button type="button" class="commentbutton btn btn-primary fa fa-comment" id="commentbutton" href="#" data-commentid="{{ post.id }}" >
 						                Post
 						                </button>
 
@@ -288,9 +297,9 @@ overflow-x: hidden;
 		            </div>
 								{% endfor%}
 							</div>
-				</div>
+				</div></div>
 		</div>
-</div>
+</div></div>
 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript">
 	$(function()

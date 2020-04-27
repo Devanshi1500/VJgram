@@ -141,11 +141,11 @@
         </div>
     </div>
     <br>
-<!-- <div id="myModal" class="modal">
+<div id="myModal" class="modal">
   <span class="close">&times;</span>
   <img class="modal-content" id="img01">
   <div id="caption"></div>
-</div> -->
+</div> 
     <div style="text-align: center; background-color: black; border-radius: 10px;">
         <img width="250" height="250" style="width:100%;cursor:pointer;"
   onclick="document.getElementById('modal01').style.display='block'" id="myImg" src="{{ object.image.url }}" alt="Card image cap">
@@ -161,12 +161,12 @@
         <a class="article-title" style="color: rgb(0, 90, 90); font-size: 2rem;" href="{% url 'post-detail' post.id %}">
             {{ object.title }}
         </a>
-    &nbsp;
+    &nbsp;<br>
     <span class="article-content">
         {{ object.content }}
     </span>
     <br>
-		<div class="btn-group">
+		<div class="btn-group" style="padding-top: 5px;">
 				{% for like in likes %}
 						{% if like.post_id == post %}
 								<button type="button" class="likebutton btn btn-danger">
@@ -174,7 +174,7 @@
 								</button>
 						{% endif %}
 						{% empty %}
-								<button type="button" class="likebutton btn " id="like{{post.id}}"  data-catid="{{ post.id }}" >
+								<button type="button" class="likebutton btn btn-danger far fa-heart " id="like{{post.id}}"  data-catid="{{ post.id }}" >
 										Like
 								</button>
 				{% endfor %}
@@ -205,13 +205,13 @@
 						{% csrf_token %}
 
 						<input placeholder="New Comment" type="text" id="fname" data-commentid="{{ post.id }}">
-						<button type="button" class="commentbutton" id="commentbutton" href="#" data-commentid="{{ post.id }}" >
+						<button type="button" class="commentbutton btn-primary fa fa-comment" id="commentbutton" href="#" data-commentid="{{ post.id }}" >
 						Post
 						</button>
 
 				</form>
     {% if post.author == user%}
-    <div style="text-align: right;">
+    <div style="text-align: right;padding-top: 20px;padding-bottom: 20px;">
         <a class="btn btn-secondary" href="{%url 'post-update' post.id %}" >Update</a>&nbsp;&nbsp;&nbsp;
         <a class="btn btn-danger" href="{%url 'post-delete' post.id %}"> Delete</a>
     </div>
