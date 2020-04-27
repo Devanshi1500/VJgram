@@ -8,6 +8,10 @@
 
 <style>
 
+	input:hover, button:hover{
+		transform: translate(2px,2px);
+	}
+
 .list-group-item,.nav-link{
 	color: snow;
 	background-color: rgb(0, 90, 90);
@@ -38,19 +42,7 @@ body {
 	overflow:auto;
 
 }
-.gallery{
-	margin:5px;
-	border:1px solid #ccc;
-	float:left;
-	width:300px;
-	display:inline-block;
 
-
-}
-.gallery img{
-	width:100%;
-	height:auto;
-}
  @media screen and (max-width: 100%) {
       .sidenav {
         height: auto;
@@ -136,14 +128,30 @@ body {
   font-weight: bold;
   transition: 0.3s;
 }
- .card{
-	width:100%;
+.card{
+	color: rgb(0, 90, 90);
+	margin: 3% 30%;
+	border: 1px solid #dddddd;
+	border-left: 7px solid teal;
+	border-bottom: 1px solid teal;
+	border-radius: 20px;
+	padding: 20px;
 }
 .close:hover,
 .close:focus {
   color: #bbb;
   text-decoration: none;
   cursor: pointer;
+}
+.sidenav {
+height: 100%;
+width: 300px;
+position: fixed;
+z-index: 1;
+top: 60px;
+left: 0;
+background-color: rgb(0, 70, 70);;
+overflow-x: hidden;
 }
 </style>
 <script src="https://kit.fontawesome.com/be0ad558f3.js" crossorigin="anonymous"></script>
@@ -162,127 +170,127 @@ body {
       </script>
 
 <div class="row">
-	<div class="col-md-3">
-	        <h3 style="padding: 10px 5px 0 0; text-align: center; color: rgb(0, 70, 70);"><b>Sidebar</b></h3>
-	        <p class='text-muted'>
-	            <ul class="list-group">
-							    <li class="list-group-item">
-									    <a class="nav-link" href="{% url 'post-create' %}"><b>Want to Post?</b></a>
-							    </li>
-									<li class="list-group-item">
-									    <a class="nav-link" href="{% url 'user-posts' user.username %}"><b>Want to see your posts?</b></a>
-							    </li>
-									<li class="list-group-item">
-									    <a class="nav-link" href="{% url 'friends' user.username %}"><b>Want to see your friends?</b></a>
-							    </li>
-									<li class="list-group-item">
-									    <a class="nav-link" href="{% url 'otherusers' %}"><b>Want to add some new friends?</b></a>
+		<div class="col-md-3">
+			<div class="sidenav">
+		        <h3 style="padding: 10px 5px 0 0; text-align: center; color: rgb(0, 70, 70);"><b>Sidebar</b></h3>
+		        <p class='text-muted'>
+		            <ul class="list-group">
+								    <li class="list-group-item">
+										    <a class="nav-link" href="{% url 'post-create' %}"><b>Want to Post?</b></a>
+								    </li>
+										<li class="list-group-item">
+										    <a class="nav-link" href="{% url 'user-posts' user.username %}"><b>Want to see your posts?</b></a>
+								    </li>
+										<li class="list-group-item">
+										    <a class="nav-link" href="{% url 'friends' user.username %}"><b>Want to see your friends?</b></a>
+								    </li>
+										<li class="list-group-item">
+										    <a class="nav-link" href="{% url 'otherusers' %}"><b>Want to add some new friends?</b></a>
+									</li>
+									<li class="list-group-item list-group-item-light">
+										<a class="nav-link" href="{% url 'group-create' %}"><b>Want to make a group?</b></a>
 								</li>
-								<li class="list-group-item list-group-item-light">
-									<a class="nav-link" href="{% url 'group-create' %}"><b>Want to make a group?</b></a>
-							</li>
-									<li class="list-group-item">
-	                    				<a class="nav-link" href="{% url 'groups' %}"><b>Want to see your groups?</b></a>
-	               				 </li>
-									<li class="list-group-item">
-											<a class="nav-link" href="{% url 'othergroups' %}"><b>Want to join some new group?</b></a>
-									</li>
-									<li class="list-group-item">
-											<a class="nav-link" href="{% url 'user-groups' %}"><b>Want to see groups you created?</b></a>
-									</li>
-	            </ul>
-	        </p>
-	    <!-- </div> -->
-	</div>
-	<div class="col-md-8">
+										<li class="list-group-item">
+		                    				<a class="nav-link" href="{% url 'groups' %}"><b>Want to see your groups?</b></a>
+		               				 </li>
+										<li class="list-group-item">
+												<a class="nav-link" href="{% url 'othergroups' %}"><b>Want to join some new group?</b></a>
+										</li>
+										<li class="list-group-item">
+												<a class="nav-link" href="{% url 'user-groups' %}"><b>Want to see groups you created?</b></a>
+										</li>
+		            </ul>
+		        </p>
+		    </div> 
+		</div>
+		<div class="col-md-8">
+				<div style="text-align:center">
+				<h1 class="mb-3">  Posts by {{view.kwargs.username}}</h1>
+				</div>
+				<div class="jumbotron">
+						<div class="w3-col m8" >
+								{% for post in posts %}
+								<div class="card">
+		                <div class="row">
+		                    <div style="padding-left: 15px;">
+		                        <img class="rounded-circle article-img" height=50 width=50 src="{{ post.author.profile.image.url }}">
+		                    </div>
+		                    <div class="col-md-4">
+		                        <h2 style="padding-top: 7px;">
+		                            <b>
+		                                <a style="color: rgb(0, 90, 90);" href="{% url 'user-posts' post.author %}">
+		                                    {{ post.author }}
+		                                </a>
+		                            </b>
+		                        </h2>
+		                    </div>
+		                </div>
+		                <br>
+		                <div style="text-align: center; background-color: black; border-radius: 10px;">
+		                    <img width="250" height="250" src="{{ post.image.url }}" alt="Card image cap"><br>
+		                </div>
+		                <b>
+		                    <a class="article-title" style="color: rgb(0, 90, 90); font-size: 2rem;" href="{% url 'post-detail' post.id %}">
+		                        {{ post.title }}
+		                    </a>
+		                </b>
+		                <span class="article-content">
+		                    {{ post.content }}
+		                </span>
+		                <div class="btn-group">
+		                    {% for like in likes %}
+		                        {% if like.post_id == post %}
+		                            <button type="button" color="blue">
+		                                Like
+		                            </button>
+		                        {% endif %}
+		                        {% empty %}
+		                            <button type="button" class="likebutton btn btn-danger" id="like{{post.id}}" href="#" data-catid="{{ post.id }}" >
+		                                Like
+		                            </button>
+		                    {% endfor %}
+		                </div>
+										<div class="container" id="{{post.id}}">
 
-<div style="text-align:center">
-	<h1 class="mb-3">  Posts by {{view.kwargs.username}}</h1>
-</div>
-<div class="container">
+									          {% for comment in comments %}
+									              {% if comment.post_id == post %}
+									                  <p class="article-content" style="padding: 5px; font-size: 1rem;">
+									                      {{ comment.user_id }}
+									                  </p>
+									                  <br>
+									                  <p class="article-content" style="padding: 5px; font-size: 1rem;">
+									                      {{ comment.content }}
+									                  </p>
+									                  <br>
+									                  <span class="article-content" style="font-size: x-small; text-align: right;">
+									                      <span>
+									                          {{ comment.date_created }}
+									                      </span>
+									                  </span>
+									              {% endif%}
+									          {% endfor %}
+														<div class="c" id="c">
+													</div>
+						            <br>
+						            <br>
+						            <form method="POST">
+						                {% csrf_token %}
 
+						                <input placeholder="New Comment" type="text" id="fname" data-commentid="{{ post.id }}">
+						                <button type="button" class="commentbutton" id="commentbutton" href="#" data-commentid="{{ post.id }}" >
+						                Post
+						                </button>
 
-      <div class="w3-col m8" >
-
-{% for post in posts %}
-		<div class="gallery">
-	<div style="padding-left: 15px;padding-top: 10px;">
-  <img class="rounded-circle article-img" style="height:70px; width:70px;" src="{{ post.author.profile.image.url }}">
-
-	<div class="col-md-4">
-	<h2 style="padding-top: 7px;">
-	<b><a style="color: rgb(0, 90, 90);">
-	{{ post.author }}
-	</a></b></h2>
-	</div>
-	</div>
-	<br>
-
-	<div style="text-align: center; background-color: white; border-radius: 10px;">
-	<img id="myImg" width="250" height="250"  onclick="onClick(this)" style="width:100%;cursor:pointer" src="{{ post.image.url }}" alt="Card image cap"><br>
-	</div>
-	<b>
-    <a class="article-title" style="font-size: 2rem;" href="{% url 'post-detail' post.id %}">
-	{{ post.title }}
-	</a></b>
-	<span class="article-content">{{ post.content }}</span>
-<div id="modal01" class="w3-modal" onclick="this.style.display='none'">
-  <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
-  <div class="w3-modal-content w3-animate-zoom">
-    <img id="img01" style="width:100%">
-  </div>
-</div>
-
-        <div class="btn-group">
-            {% for like in likes %}
-                {% if like.post_id == post %}
-                    <button type="button" class="likebutton btn btn-danger">
-                        Like
-                    </button>
-                {% endif %}
-                {% empty %}
-                    <button type="button" class="likebutton btn btn-suc" id="like{{post.id}}" href="#" data-catid="{{ post.id }}" >
-                        Like
-                    </button>
-            {% endfor %}
-        </div>
-        <div class="card" id="{{post.id}}">
-
-			          {% for comment in comments %}
-			              {% if comment.post_id == post %}
-			                  <p class="article-content" style="padding: 5px; font-size: 1rem;">
-			                      {{ comment.user_id }}
-			                  </p>
-			                  <br>
-			                  <p class="article-content" style="padding: 5px; font-size: 1rem;">
-			                      {{ comment.content }}
-			                  </p>
-			                  <br>
-			                  <span class="article-content" style="font-size: x-small; text-align: right;">
-			                      <span>
-			                          {{ comment.date_created }}
-			                      </span>
-			                  </span>
-			              {% endif%}
-			          {% endfor %}
-								<div class="c" id="c">
+						            </form>
+						        </div>
+		                <br>
+		                <small class="text-muted" style="font-size: medium;">Posted on: {{ post.date_posted }}</small>
+		            </div>
+								{% endfor%}
 							</div>
-            <br>
-            <br>
-            <form method="POST">
-                {% csrf_token %}
-
-                <input placeholder="New Comment" type="text" id="fname" data-commentid="{{ post.id }}">
-                <button type="button" class="commentbutton" id="commentbutton" href="#" data-commentid="{{ post.id }}" >
-                Post
-                </button>
-
-            </form>
-        </div>
-    </div></div></div>
-
-{% endfor%}
-</div></div>
+				</div>
+		</div>
+</div>
 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript">
 	$(function()

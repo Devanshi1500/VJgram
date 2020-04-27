@@ -87,11 +87,20 @@
 	  padding: 25px;
   }
 
-
+  .sidenav {
+  height: 100%;
+  width: 300px;
+  position: fixed;
+  z-index: 1;
+  top: 60px;
+  left: 0;
+  background-color: rgb(0, 70, 70);;
+  overflow-x: hidden;
+}
   </style>
 <div class="row">
 	<div class="col-md-3">
-	        <h3 style="padding: 10px 5px 0 0; text-align: center; color: rgb(0, 70, 70);"><b>Sidebar</b></h3>
+	        <div nav="sidenav">
 	        <p class='text-muted'>
 	            <ul class="list-group">
 							    <li class="list-group-item">
@@ -120,7 +129,7 @@
 									</li>
 	            </ul>
 	        </p>
-	    <!-- </div> -->
+	    </div>
 	</div>
 	<div class="col-md-8">
 		<div class="card-header">

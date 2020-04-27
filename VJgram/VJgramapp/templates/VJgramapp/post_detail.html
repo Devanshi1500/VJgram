@@ -91,14 +91,15 @@
 </style>
 <div class="row">
 	<div class="col-md-3">
-	        <h3 style="padding: 10px 5px 0 0; text-align: center; color: rgb(0, 70, 70);"><b>Sidebar</b></h3>
+
+	        <div class="sidenav">
 	        <p class='text-muted'>
 	            <ul class="list-group">
 							    <li class="list-group-item">
 									    <a class="nav-link" href="{% url 'post-create' %}"><b>Want to Post?</b></a>
 							    </li>
 									<li class="list-group-item">
-									    <a class="nav-link" href="{% url 'user-posts'%}"><b>Want to see your posts?</b></a>
+									    <a class="nav-link" href="{% url 'user-posts' user.username %}"><b>Want to see your posts?</b></a>
 							    </li>
 									<li class="list-group-item">
 									    <a class="nav-link" href="{% url 'friends' user.username %}"><b>Want to see your friends?</b></a>
@@ -120,6 +121,7 @@
 									</li>
 	            </ul>
 	        </p>
+					</div>
 	</div>
 	<div class="col-md-8">
     <br>
@@ -131,7 +133,7 @@
         <div class="col-md-4">
             <h2 style="padding-top: 7px;">
                 <b>
-                    <a style="color: rgb(0, 90, 90);" href="{% url 'user-posts'%}">
+                    <a style="color: rgb(0, 90, 90);" href="{% url 'user-posts' user.username%}">
                         {{ object.author }}
                     </a>
                 </b>
@@ -185,7 +187,7 @@
 										<p class="article-content" style="padding: 5px; font-size: 1rem;">
 												<b>{{ comment.user_id }} </b> :	{{ comment.content }}
 												<span class="article-content" style="font-size: x-small; text-align: right;">
-														<span>
+														<span style="text-align:center;">
 																{{ comment.date_created }}
 														</span>
 												</span>

@@ -28,13 +28,22 @@
 	padding: 20px 6.5%;
 	color: rgb(0, 66, 66);
 }
-
+.sidenav {
+height: 100%;
+width: 300px;
+position: fixed;
+z-index: 1;
+top: 60px;
+left: 0;
+background-color: rgb(0, 70, 70);;
+overflow-x: hidden;
+}
 	</style>
 	<br>
 <!-- <div class="container"> -->
 	<div class="row">
 	<div class="col-md-3">
-	    <!-- <div class="content-section"> -->
+	    <div class="sidenav">
 	        <h3 style="padding-left: 20px; color: rgb(0, 70, 70);"><b>Sidebar</b></h3>
 	        <p class='text-muted'>
 	            <ul class="list-group">
@@ -64,7 +73,7 @@
 									</li>
 	            </ul>
 	        </p>
-	    <!-- </div> -->
+	    </div>
 	</div>
 	<div class="col-md-8">
 		<div class="jumbotron group" width=100% height=100%>

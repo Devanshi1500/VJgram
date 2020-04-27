@@ -6,9 +6,18 @@
 			{% csrf_token %}
 			<fieldset class="form-group">
 				<legend class="border-bottom mb-4">
+					<center>
 					Delete Post
+					</center>
 				</legend>
-				<h2>Are you sure you want to delete the post "{{ object.title }}"
+				<a class="article-title" style="color: rgb(0, 90, 90); font-size: 2rem;" href="{% url 'post-detail' post.id %}">
+            {{ object.title }}
+        </a>
+    &nbsp;
+    <span class="article-content">
+        {{ object.content }}
+    </span>
+    <br>
 			</fieldset>
 			<div class="form-group">
 				<button class="btn btn-outline-danger" type="submit">
