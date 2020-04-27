@@ -3,16 +3,16 @@
 
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
 <style>
-
+    .bg-info{background-color:rgb(0, 90, 90)!important}
 
 	input:hover,button:hover{
 		transform: translate(2px,2px);
 	}
 
-	.messages:hover{
+	/* .messages:hover{
 		box-shadow: 0 12px 12px 0 rgba(0,10,10,0.2);
 		transform: translate(3px,4px);
-	}
+	} */
 
 	.chat .messages {
 	  border:1 px solid;
@@ -20,7 +20,7 @@
 	  border-radius: 15px;
 	  width:40%;
 	  padding:10px;
-	  margin: auto;
+	  /* margin: auto; */
 	  overflow-y:scroll;
 	  height:350px;
 	  color: snow;
@@ -29,23 +29,32 @@
 	border-bottom: 1px solid teal;
 	}
 
-	li{
-		border: 1px solid #016464;
-		background-color: #016464;
+	.text{
+		border: 1px solid #007e69;
+		background-color: rgb(0, 90, 90);
 		border-radius: 10px;
 		padding: 1rem;
 	}
 
-	li:hover{
+	.text:hover{
 		box-shadow: 0 10px 10px 0 rgba(0, 90, 90, 0.2);
 		transform: translate(4px,4px);
 	}
 
 	form{
 		margin: auto;
-		width: 50%;
+		width: 100%;
 	}
 
+	.list-group-item,.nav-link{
+	color: snow;
+	background-color: rgb(0, 90, 90);
+	border-radius-top: 10px;
+}
+
+.nav-link:hover{
+	color: #05ffd5;
+}
 
 	.chat a {
 	  color:slategray;
@@ -56,82 +65,127 @@
 	}
 
 	.speech-bubble {
-	  background-color: #016464;
+	  background-color: rgb(0, 90, 90);
 
   }
 
   .card-header{
-	color: rgb(0, 66, 66);
+	color: rgb(0, 90, 90);
 	border: 1px solid #dddddd;
-	border-left: 7px solid teal;
-	border-bottom: 1px solid teal;
-	margin: 5%;
+	border-left: 7px solid rgb(0, 90, 90);
+	border-bottom: 1px solid rgb(0, 90, 90);
+	margin: 45px 20px 40px 90px;
+	border-radius: 20px;
+  }
+
+  .card-body{
+	
+
+  }
+
+  .container{
+	  padding: 25px;
   }
 
 
   </style>
-<div class="card-header">
-    <div class="row">
-        <div class="card-body">
-            <h2>
-                <a class="article-title">
-                    {{ object.title }}
-                </a>
-            </h2>
-            <p class="article-content">
-                {{ object.description }}
-            </p>
-            {% if group.creator == user %}
-                <div>
-                    <button class="btn btn-secondary btn-sm mt-1" style="padding: .65% 4.5%;" href="{%url 'group-update' group.group_id %}">
-                        Update
-                    </button>
-                    <button class="btn btn-danger btn-sm mt-1" style="padding: .65% 4.5%;" href="{%url 'group-delete' group.group_id %}">
-                        Delete
-                    </button>
-                </div>
-            {% endif %}
-        </div>
-</div>
-
-
-<div class="container" id="chat">
-    <div class="messages">
-        <ul>
-            {% for chat in chats %}
-                <li>
-                    <span style="float: left;color:white">
-                        <b>
-                            {{chat.user_id_from}}:
-                        </b>
-                    </span>
-                    <span style="color:white;">
-                        {{chat.content}}
-                    </span>
-                    <br>
-                    <span style="font-size: 10px; float: right;">
-                        {{chat.date_created}}
-                    </span>
-                </li>
-                <br>
-            {% endfor %}
-            <div class="chatting">
-            </div>
-        </ul>
-    </div>
-    <br>
-    <form method="POST" style="text-align: center;">
-    {% csrf_token %}
-        <input class="form-group" type="text" id="fname" data-commentid="{{ group.group_id }}" style="width: 50%; padding: 5px; border-radius: 10px;">
-        <button type="button" class="postbutton btn btn-outline-info" style="padding: .85% 6.5%;" id="comment" data-commentid="{{ group.group_id }}" >
-            Post
-        </button>
-    </form>
-		<div>
-				{% for member in mt %}
-						{{member}}
+<div class="row">
+	<div class="col-md-3">
+	        <h3 style="padding: 10px 5px 0 0; text-align: center; color: rgb(0, 70, 70);"><b>Sidebar</b></h3>
+	        <p class='text-muted'>
+	            <ul class="list-group">
+							    <li class="list-group-item">
+									    <a class="nav-link" href="{% url 'post-create' %}"><b>Want to Post?</b></a>
+							    </li>
+									<li class="list-group-item">
+									    <a class="nav-link" href="{% url 'user-posts'%}"><b>Want to see your posts?</b></a>
+							    </li>
+									<li class="list-group-item">
+									    <a class="nav-link" href="{% url 'friends' user.username %}"><b>Want to see your friends?</b></a>
+							    </li>
+									<li class="list-group-item">
+									    <a class="nav-link" href="{% url 'otherusers' %}"><b>Want to add some new friends?</b></a>
+								</li>
+								<li class="list-group-item list-group-item-light">
+									<a class="nav-link" href="{% url 'group-create' %}"><b>Want to make a group?</b></a>
+							</li>
+									<li class="list-group-item">
+	                    				<a class="nav-link" href="{% url 'groups' %}"><b>Want to see your groups?</b></a>
+	               				 </li>
+									<li class="list-group-item">
+											<a class="nav-link" href="{% url 'othergroups' %}"><b>Want to join some new group?</b></a>
+									</li>
+									<li class="list-group-item">
+											<a class="nav-link" href="{% url 'user-groups' %}"><b>Want to see groups you created?</b></a>
+									</li>
+	            </ul>
+	        </p>
+	    <!-- </div> -->
+	</div>
+	<div class="col-md-8">
+		<div class="card-header">
+			<div class="card-body">
+				<h2>
+					<a class="article-title">
+						{{ object.title }}
+					</a>
+				</h2>
+				<p class="article-content">
+					{{ object.description }}
+				</p>
+				{% if group.creator == user %}
+					<div>
+						<button class="btn btn-secondary btn-sm mt-1" style="padding: .65% 4.5%;" href="{%url 'group-update' group.group_id %}">
+							Update
+						</button>
+						<button class="btn btn-danger btn-sm mt-1" style="padding: .65% 4.5%;" href="{%url 'group-delete' group.group_id %}">
+							Delete
+						</button>
+					</div>
+				{% endif %}
+			</div>
+	
+	
+	<div class="container" id="chat">
+		<div class="messages" style="overflow-y: auto; height: 350px; padding-right: 10px;">
+			<ul>
+				{% for chat in chats %}
+					<li class="text" style="color: snow;">
+						<span style="float: left;">
+							<b>
+								{{chat.user_id_from}}:&nbsp;
+							</b>
+						</span>
+						<span>
+							{{chat.content}}
+						</span>
+						<br>
+						<span style="font-size: 10px; float: right;">
+							{{chat.date_created}}
+						</span>
+					</li>
+					<br>
 				{% endfor %}
+				<div class="chatting">
+				</div>
+			</ul>
 		</div>
+		<br>
+		<form method="POST" style="text-align: center;">
+		{% csrf_token %}
+			<input class="form-group" type="text" id="fname" data-commentid="{{ group.group_id }}" style="width: 50%; padding: 5px; border-radius: 10px;">
+			<button type="button" class="postbutton btn btn-outline-info" style="padding: .85% 6.5%;" id="comment" data-commentid="{{ group.group_id }}" >
+				Post
+			</button>
+		</form>
+			<!-- <div>
+					{% for member in mt %}
+							{{member}}
+					{% endfor %}
+			</div> -->
+	</div>
+	</div>
+</div>
 </div>
 
 
@@ -179,37 +233,5 @@ $(function()
 )
 });
 </script>
-<div class="col-md-4">
-		<div class="content-section">
-				<h3>Our Sidebar</h3>
-				<p class='text-muted'>
-						<ul class="list-group">
-								<li class="list-group-item list-group-item-light">
-										<a class="nav-link" href="{% url 'post-create' %}"><b>Want to Post?</b></a>
-								</li>
-								<li class="list-group-item list-group-item-light">
-										<a class="nav-link" href="{% url 'user-posts'%}"><b>Want to see your posts?</b></a>
-								</li>
-								<li class="list-group-item list-group-item-light">
-										<a class="nav-link" href="{% url 'friends' user.username %}"><b>Want to see your friends?</b></a>
-								</li>
-								<li class="list-group-item list-group-item-light">
-										<a class="nav-link" href="{% url 'otherusers' %}"><b>Want to add some new friends?</b></a>
-								</li>
-								<li class="list-group-item list-group-item-light">
-										<a class="nav-link" href="{% url 'group-create' %}"><b>Want to make a group?</b></a>
-								</li>
-								<li class="list-group-item list-group-item-light">
-										<a class="nav-link" href="{% url 'groups' %}"><b>Want to see your groups?</b></a>
-								</li>
-								<li class="list-group-item list-group-item-light">
-										<a class="nav-link" href="{% url 'othergroups' %}"><b>Want to join some new group?</b></a>
-								</li>
-								<li class="list-group-item list-group-item-light">
-										<a class="nav-link" href="{% url 'user-groups' %}"><b>Want to see groups you created?</b></a>
-								</li>
-						</ul>
-				</p>
-		</div>
-</div>
+
 {% endblock %}

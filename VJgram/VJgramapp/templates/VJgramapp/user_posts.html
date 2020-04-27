@@ -7,10 +7,21 @@
 <script src="https://kit.fontawesome.com/be0ad558f3.js" crossorigin="anonymous"></script>
 
 <style>
+
+.list-group-item,.nav-link{
+	color: snow;
+	background-color: rgb(0, 90, 90);
+	border-radius-top: 10px;
+}
+
+.nav-link:hover{
+	color: #05ffd5;
+}
+
 .article{
 	margin: auto;
 }
-* {
+*{
   box-sizing: border-box;
 }
 
@@ -39,8 +50,8 @@ body {
 .gallery img{
 	width:100%;
 	height:auto;
-}
-@media screen and (max-width: 100%) {
+} 
+ @media screen and (max-width: 100%) {
       .sidenav {
         height: auto;
         padding: 15px;
@@ -57,10 +68,9 @@ body {
 .fas{
     	color:#f50057;
     	transition: .4s;
-    }
+    } 
 
-    /*modal*/
-    #myImg {
+     #myImg {
   border-radius: 5px;
   cursor: pointer;
   transition: 0.3s;
@@ -68,22 +78,20 @@ body {
 
 #myImg:hover {opacity: 0.7;}
 
-/* The Modal (background) */
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
+  display: none; 
+  position: fixed; 
+  z-index: 1; 
+  padding-top: 100px; 
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.9); /* Black w/ opacity */
-}
+  width: 100%; 
+  height: 100%; 
+  overflow: auto; 
+  background-color: rgb(0,0,0); 
+  background-color: rgba(0,0,0,0.9); 
+} 
 
-/* Modal Content (image) */
 .modal-content {
   margin: auto;
   display: block;
@@ -91,7 +99,6 @@ body {
   max-width: 700px;
 }
 
-/* Caption of Modal Image */
 #caption {
   margin: auto;
   display: block;
@@ -103,7 +110,6 @@ body {
   height: 150px;
 }
 
-/* Add Animation */
 .modal-content, #caption {  
   -webkit-animation-name: zoom;
   -webkit-animation-duration: 0.6s;
@@ -119,9 +125,8 @@ body {
 @keyframes zoom {
   from {transform:scale(0)} 
   to {transform:scale(1)}
-}
+} 
 
-/* The Close Button */
 .close {
   position: absolute;
   top: 15px;
@@ -131,7 +136,7 @@ body {
   font-weight: bold;
   transition: 0.3s;
 }
-.card{
+ .card{
 	width:100%;
 }
 .close:hover,
@@ -140,15 +145,8 @@ body {
   text-decoration: none;
   cursor: pointer;
 }
-
-/* 100% Image Width on Smaller Screens */
-@media only screen and (max-width: 700px){
-  .modal-content {
-    width: 100%;
-  }
 </style>
 <script src="https://kit.fontawesome.com/be0ad558f3.js" crossorigin="anonymous"></script>
-<!--Javascript for like button-->
       <script>
       	var btn = document.getElementById('btn');
       	function Toggle(){
@@ -162,6 +160,41 @@ body {
       	}
       }
       </script>
+
+<div class="row">
+	<div class="col-md-3">
+	        <h3 style="padding: 10px 5px 0 0; text-align: center; color: rgb(0, 70, 70);"><b>Sidebar</b></h3>
+	        <p class='text-muted'>
+	            <ul class="list-group">
+							    <li class="list-group-item">
+									    <a class="nav-link" href="{% url 'post-create' %}"><b>Want to Post?</b></a>
+							    </li>
+									<li class="list-group-item">
+									    <a class="nav-link" href="{% url 'user-posts'%}"><b>Want to see your posts?</b></a>
+							    </li>
+									<li class="list-group-item">
+									    <a class="nav-link" href="{% url 'friends' user.username %}"><b>Want to see your friends?</b></a>
+							    </li>
+									<li class="list-group-item">
+									    <a class="nav-link" href="{% url 'otherusers' %}"><b>Want to add some new friends?</b></a>
+								</li>
+								<li class="list-group-item list-group-item-light">
+									<a class="nav-link" href="{% url 'group-create' %}"><b>Want to make a group?</b></a>
+							</li>
+									<li class="list-group-item">
+	                    				<a class="nav-link" href="{% url 'groups' %}"><b>Want to see your groups?</b></a>
+	               				 </li>
+									<li class="list-group-item">
+											<a class="nav-link" href="{% url 'othergroups' %}"><b>Want to join some new group?</b></a>
+									</li>
+									<li class="list-group-item">
+											<a class="nav-link" href="{% url 'user-groups' %}"><b>Want to see groups you created?</b></a>
+									</li>
+	            </ul>
+	        </p>
+	    <!-- </div> -->
+	</div>
+	<div class="col-md-8">
 
 <div style="text-align:center">
 	<h1 class="mb-3">  Posts by {{view.kwargs.username}}</h1>
@@ -195,7 +228,6 @@ body {
 	{{ post.title }}
 	</a></b>
 	<span class="article-content">{{ post.content }}</span>
-<!-- The Modal -->
 <div id="modal01" class="w3-modal" onclick="this.style.display='none'">
   <span class="w3-button w3-hover-red w3-xlarge w3-display-topright">&times;</span>
   <div class="w3-modal-content w3-animate-zoom">
@@ -252,37 +284,7 @@ body {
     </div></div></div>
     {% endif %}
 {% endfor%}
-<div class="card">
-	<div class="col-md-4">
-	    <div class="content-section">
-	        <h3>Our Sidebar</h3>
-	        <p class='text-muted'>
-	            <ul class="list-group">
-							    <li class="list-group-item list-group-item-light">
-									    <a class="nav-link" href="{% url 'post-create' %}"><b>Want to Post?</b></a>
-							    </li>
-									<li class="list-group-item list-group-item-light">
-									    <a class="nav-link" href="{% url 'friends' user.username %}"><b>Want to see your friends?</b></a>
-							    </li>
-									<li class="list-group-item list-group-item-light">
-									    <a class="nav-link" href="{% url 'otherusers' %}"><b>Want to add some new friends?</b></a>
-							    </li>
-									<li class="list-group-item list-group-item-light">
-									    <a class="nav-link" href="{% url 'group-create' %}"><b>Want to make a group?</b></a>
-							    </li>
-									<li class="list-group-item list-group-item-light">
-	                    <a class="nav-link" href="{% url 'groups' %}"><b>Want to see your groups?</b></a>
-	                </li>
-									<li class="list-group-item list-group-item-light">
-											<a class="nav-link" href="{% url 'othergroups' %}"><b>Want to join some new group?</b></a>
-									</li>
-									<li class="list-group-item list-group-item-light">
-											<a class="nav-link" href="{% url 'user-groups' %}"><b>Want to see groups you created?</b></a>
-									</li>
-	            </ul>
-	        </p>
-	    </div>
-	</div></div>
+</div></div>
 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 	<script type="text/javascript">
 	$(function()
@@ -345,12 +347,9 @@ body {
 		)
 	});
 	</script>
-	<!--JS-->
 <script>
-// Get the modal
 var modal = document.getElementById("myModal");
 
-// Get the image and insert it inside the modal - use its "alt" text as a caption
 var img = document.getElementById("myImg");
 var modalImg = document.getElementById("img01");
 var captionText = document.getElementById("caption");
@@ -360,10 +359,8 @@ img.onclick = function(){
   captionText.innerHTML = this.alt;
 }
 
-// Get the <span> element that closes the modal
 var span = document.getElementsByClassName("close")[0];
 
-// When the user clicks on <span> (x), close the modal
 span.onclick = function() { 
   modal.style.display = "none";
 }

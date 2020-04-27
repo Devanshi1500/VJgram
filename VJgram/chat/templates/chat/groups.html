@@ -1,54 +1,93 @@
 {% extends 'VJgramapp/base1.html' %}
 {% block content %}
 
-{% for group in groups%}
-{% if group in g %}
 
-<div class="card" style="width: 18rem;" id="{{group.group_id}}">
-<div class="card-body">
-<img class="rounded-circle article-img" height=50 width=50 src="{{group.icon.url}}">
-<b><a class="article-title title" style="color: rgb(0, 100, 100);" href="{% url 'group-detail' group.group_id %}">{{ group.title }}</a></b>
-<h5 class="card-title">Created by {{group.creator}} on {{group.date_created}}</h5>
-<h6 class="card-subtitle mb-2 text-muted">{{group.description}}</h6>
-<button type="button" class="leavegroup" data-catid="{{group.group_id}}">
-  leaveGroup
-</button>
-</div>
-</div>
 
-{%endif%}
+<style>
+
+.list-group-item,.nav-link{
+	color: snow;
+	background-color: rgb(0, 90, 90);
+	border-radius-top: 10px;
+}
+
+.nav-link:hover{
+	color: #05ffd5;
+}
+
+	.card{
+		border-radius: 15px;
+		border: 1px solid #dddddd;
+		border-left: 7px solid teal;
+		border-bottom: 1px solid teal;
+		margin: 5% 0 0 5%;
+	}
+
+</style>
+
+
+<div class="row">
+	<div class="col-md-3">
+	        <h3 style="padding: 10px 5px 0 0; text-align: center; color: rgb(0, 70, 70);"><b>Sidebar</b></h3>
+	        <p class='text-muted'>
+	            <ul class="list-group">
+							    <li class="list-group-item">
+									    <a class="nav-link" href="{% url 'post-create' %}"><b>Want to Post?</b></a>
+							    </li>
+									<li class="list-group-item">
+									    <a class="nav-link" href="{% url 'user-posts'%}"><b>Want to see your posts?</b></a>
+							    </li>
+									<li class="list-group-item">
+									    <a class="nav-link" href="{% url 'friends' user.username %}"><b>Want to see your friends?</b></a>
+							    </li>
+									<li class="list-group-item">
+									    <a class="nav-link" href="{% url 'otherusers' %}"><b>Want to add some new friends?</b></a>
+								</li>
+								<li class="list-group-item list-group-item-light">
+									<a class="nav-link" href="{% url 'group-create' %}"><b>Want to make a group?</b></a>
+								</li>
+									<li class="list-group-item">
+	                    				<a class="nav-link" href="{% url 'groups' %}"><b>Want to see your groups?</b></a>
+	               				 </li>
+									<li class="list-group-item">
+											<a class="nav-link" href="{% url 'othergroups' %}"><b>Want to join some new group?</b></a>
+									</li>
+									<li class="list-group-item">
+											<a class="nav-link" href="{% url 'user-groups' %}"><b>Want to see groups you created?</b></a>
+									</li>
+	            </ul>
+	        </p>
+	</div>
+	<div class="col-md-8">
+		<h1 class="mb-3" style="text-align: center; color: rgb(0, 92, 92);padding-top: 40px; margin: 0 25% 0 25%; border-bottom: 1px solid #eee;">Groups that you are part of</h1>
+		<hr>
+
+		{% for group in groups%}
+			{% if group in g %}
+				<div class="card" id="{{group.group_id}}">
+					<div class="card-body">
+						<img class="rounded-circle article-img" height=40 width=40 src="{{group.icon.url}}">&nbsp;&nbsp;
+						<b><a class="article-title title" style="color: rgb(0, 100, 100); font-size: 1.5rem;" href="{% url 'group-detail' group.group_id %}">{{ group.title }}</a></b>
+						<h5 class="card-title" style="color: rgb(0, 60, 60); padding: 10px;">Created by {{group.creator}} on {{group.date_created}}</h5>
+						<h6 class="card-subtitle mb-2 text-muted" style="padding-left: 10px;">{{group.description}}</h6>
+						<button type="button" style="margin: 15px; margin: 10px;" class="leavegroup btn btn-outline-info" data-catid="{{group.group_id}}">
+						Leave Group
+						</button>
+					</div>
+				</div>
+				{%endif%}
 
 {% endfor %}
-<div class="col-md-4">
-    <div class="content-section">
-        <h3>Our Sidebar</h3>
-        <p class='text-muted'>
-            <ul class="list-group">
-						    <li class="list-group-item list-group-item-light">
-								    <a class="nav-link" href="{% url 'post-create' %}"><b>Want to Post?</b></a>
-						    </li>
-                <li class="list-group-item list-group-item-light">
-								    <a class="nav-link" href="{% url 'user-posts'%}"><b>Want to see your posts?</b></a>
-						    </li>
-								<li class="list-group-item list-group-item-light">
-								    <a class="nav-link" href="{% url 'friends' user.username %}"><b>Want to see your friends?</b></a>
-						    </li>
-								<li class="list-group-item list-group-item-light">
-								    <a class="nav-link" href="{% url 'otherusers' %}"><b>Want to add some new friends?</b></a>
-						    </li>
-                <li class="list-group-item list-group-item-light">
-                    <a class="nav-link" href="{% url 'othergroups' %}"><b>Want to join some new group?</b></a>
-                </li>
-								<li class="list-group-item list-group-item-light">
-								    <a class="nav-link" href="{% url 'group-create' %}"><b>Want to make a group?</b></a>
-						    </li>
-								<li class="list-group-item list-group-item-light">
-                    <a class="nav-link" href="{% url 'user-groups' %}"><b>Want to see groups you created?</b></a>
-                </li>
-            </ul>
-        </p>
-    </div>
+<br><br>
+			</div>
+		</div>
+		
+	</div>
 </div>
+	
+
+
+
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 $(function()

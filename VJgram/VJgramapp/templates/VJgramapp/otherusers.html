@@ -1,46 +1,84 @@
 {% extends 'VJgramapp/base1.html' %}
 {% block content %}
-{% for user in users%}
-	<div class="card" style="width: 18rem;">
-	<div class="card-body">
-	<h5 class="card-title">{{user.username}}</h5>
-	<h6 class="card-subtitle mb-2 text-muted">Ca</h6>
-	<button type="button" class="addbutton" data-catid="{{user.id}}">
-		addFriend
-	</button>
+
+<style>
+	.list-group-item,.nav-link{
+	color: snow;
+	background-color: rgb(0, 90, 90);
+	border-radius-top: 10px;
+}
+
+.nav-link:hover{
+	color: #05ffd5;
+}
+
+.jumbotron{
+	margin-left: 7%;
+}
+
+.card{
+	border: 1px solid #dddddd;
+	border-left: 7px solid teal;
+	border-bottom: 1px solid teal;
+	border-radius: 10px;
+	padding: 20px;
+	margin: 3.5%;
+}
+</style>
+
+<div class="row">
+	<div class="col-md-3">
+	        <h3 style="padding: 10px 5px 0 0; text-align: center; color: rgb(0, 70, 70);"><b>Sidebar</b></h3>
+	        <p class='text-muted'>
+	            <ul class="list-group">
+							    <li class="list-group-item">
+									    <a class="nav-link" href="{% url 'post-create' %}"><b>Want to Post?</b></a>
+							    </li>
+									<li class="list-group-item">
+									    <a class="nav-link" href="{% url 'user-posts'%}"><b>Want to see your posts?</b></a>
+							    </li>
+									<li class="list-group-item">
+									    <a class="nav-link" href="{% url 'friends' user.username %}"><b>Want to see your friends?</b></a>
+							    </li>
+									<li class="list-group-item">
+									    <a class="nav-link" href="{% url 'otherusers' %}"><b>Want to add some new friends?</b></a>
+								</li>
+								<li class="list-group-item list-group-item-light">
+									<a class="nav-link" href="{% url 'group-create' %}"><b>Want to make a group?</b></a>
+							</li>
+									<li class="list-group-item">
+	                    				<a class="nav-link" href="{% url 'groups' %}"><b>Want to see your groups?</b></a>
+	               				 </li>
+									<li class="list-group-item">
+											<a class="nav-link" href="{% url 'othergroups' %}"><b>Want to join some new group?</b></a>
+									</li>
+									<li class="list-group-item">
+											<a class="nav-link" href="{% url 'user-groups' %}"><b>Want to see groups you created?</b></a>
+									</li>
+	            </ul>
+	        </p>
 	</div>
-	</div>
-{% endfor %}
-<div class="col-md-4">
-		<div class="content-section">
-				<h3>Our Sidebar</h3>
-				<p class='text-muted'>
-						<ul class="list-group">
-								<li class="list-group-item list-group-item-light">
-										<a class="nav-link" href="{% url 'post-create' %}"><b>Want to Post?</b></a>
-								</li>
-								<li class="list-group-item list-group-item-light">
-										<a class="nav-link" href="{% url 'user-posts'%}"><b>Want to see your posts?</b></a>
-								</li>
-								<li class="list-group-item list-group-item-light">
-										<a class="nav-link" href="{% url 'friends' user.username %}"><b>Want to see your friends?</b></a>
-								</li>
-								<li class="list-group-item list-group-item-light">
-										<a class="nav-link" href="{% url 'group-create' %}"><b>Want to make a group?</b></a>
-								</li>
-								<li class="list-group-item list-group-item-light">s
-										<a class="nav-link" href="{% url 'groups' %}"><b>Want to see your groups?</b></a>
-								</li>
-								<li class="list-group-item list-group-item-light">
-										<a class="nav-link" href="{% url 'othergroups' %}"><b>Want to join some new group?</b></a>
-								</li>
-								<li class="list-group-item list-group-item-light">
-										<a class="nav-link" href="{% url 'user-groups' %}"><b>Want to see groups you created?</b></a>
-								</li>
-						</ul>
-				</p>
+	<div class="col-md-8">
+	<div class="jumbotron">
+		<h1 style="padding: 10px 5px 0 0; text-align: center; color: rgb(0, 70, 70);"><b>People on VJgram</b></h1>
+		<div class="row">
+		{% for user in users%}
+			<div class="card col-md-5">
+				<!-- <div class="card-body"> -->
+				<h3 class="card-title">{{user.username}}</h3>
+				<h6 class="card-subtitle mb-2 text-muted">Mutual Friends</h6>
+				<span style="text-align: right;">
+				<button style="width: 40%;" class="btn btn-outline-info addbutton" data-catid="{{user.id}}">
+					Add Friend
+				</button>
+			</span>
+				<!-- </div> -->
+			</div><br>
+		{% endfor %}
 		</div>
-</div>
+	</div>
+</div></div>
+
 <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.1.min.js"></script>
 <script type="text/javascript">
 $(function()
@@ -52,7 +90,7 @@ $(function()
 		{
 			var catid;
 			catid = $(this).attr("data-catid");
-			$(this).css("background-color","green");
+			$(this).css("background-color","teal");
 			/*$.post("likepost",{'post_id':catid},function()
 				{
 				alert("post in ajax is executing xorrectly")
